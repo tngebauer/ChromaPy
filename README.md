@@ -1,1 +1,4 @@
 # ChromaPy
+
+
+This repository is used to share the Example-Scripts for ChromaPy. Feel free to build your own scripts and contribute them :)
