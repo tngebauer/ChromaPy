@@ -9,8 +9,8 @@
 #include <assert.h>
 #include <wtypes.h>
 
-#include "RzChromaSDKDefines.h"
-#include "RzChromaSDKTypes.h"
-#include "RzErrors.h"
+#include "ChromaSDK\RzChromaSDKDefines.h"
+#include "ChromaSDK\RzChromaSDKTypes.h"
+#include "ChromaSDK\RzErrors.h"
 
 static PyObject *SyntaxError;
