@@ -488,7 +488,7 @@ BOOL Chroma_Implementation::clearHeadsetEffect()
 
 bool Chroma_Implementation::testandsetColor(PyObject *Color, COLORREF &color)
 {
-	if (PyTuple_Size(Color) < 3 || PyTuple_Size(Color) > 3)
+	if (PyTuple_Size(Color) != 3)
 	{
 		return false;
 	}

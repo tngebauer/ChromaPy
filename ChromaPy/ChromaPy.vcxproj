@@ -72,8 +72,10 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath></IncludePath>
-    <LibraryPath></LibraryPath>
+    <IncludePath>
+    </IncludePath>
+    <LibraryPath>
+    </LibraryPath>
     <TargetExt>.pyd</TargetExt>
     <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
@@ -81,22 +83,28 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetExt>.pyd</TargetExt>
     <TargetName>$(ProjectName)_d</TargetName>
-    <IncludePath></IncludePath>
-    <LibraryPath></LibraryPath>
+    <IncludePath>
+    </IncludePath>
+    <LibraryPath>
+    </LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath></IncludePath>
-    <LibraryPath></LibraryPath>
+    <IncludePath>
+    </IncludePath>
+    <LibraryPath>
+    </LibraryPath>
     <TargetExt>.pyd</TargetExt>
     <ReferencePath>$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <TargetExt>.pyd</TargetExt>
-    <IncludePath></IncludePath>
-    <LibraryPath></LibraryPath>
-    <TargetName>ChromaPy</TargetName>
+    <IncludePath>
+    </IncludePath>
+    <LibraryPath>
+    </LibraryPath>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
