@@ -88,10 +88,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>
-    </IncludePath>
-    <LibraryPath>
-    </LibraryPath>
+    <IncludePath>D:\Python\Python 3.6 32\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Python\Python 3.6 32\libs;$(LibraryPath)</LibraryPath>
     <TargetExt>.pyd</TargetExt>
     <ReferencePath>$(ReferencePath)</ReferencePath>
   </PropertyGroup>

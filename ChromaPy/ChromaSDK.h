@@ -24,7 +24,6 @@ const COLORREF CYAN = RGB(00, 255, 255);
 const COLORREF ORANGE = RGB(255, 165, 00);
 const COLORREF PINK = RGB(255, 192, 203);
 const COLORREF GREY = RGB(125, 125, 125);
-//You dont have to define your colors as COLORREFs, just use the RGB(xxx,xxx,xxx) function like above
 
 #define ALL_DEVICES         0
 #define KEYBOARD_DEVICES    1
@@ -32,7 +31,7 @@ const COLORREF GREY = RGB(125, 125, 125);
 #define MOUSE_DEVICES       3
 #define HEADSET_DEVICES     4
 #define KEYPAD_DEVICES      5
-//Class of your Chroma Implementation
+
 class Chroma_Implementation
 {
 public:
@@ -45,6 +44,7 @@ public:
 	Chroma_Implementation();
 	~Chroma_Implementation();
 	BOOL Initialize();
+	//Static Effect
 	static void ResetEffects(UINT DeviceType);
 	BOOL set_all(COLORREF Color);
 	BOOL setKeyboard(COLORREF Color);
@@ -52,13 +52,12 @@ public:
 	BOOL setMousepad(COLORREF Color);
 	BOOL setKeypad(COLORREF Color);
 	BOOL setHeadset(COLORREF Color);
-	
+
 	BOOL setKeyboardbyCord(size_t x, size_t y, COLORREF Color);
 	BOOL setMousebyCord(size_t x, size_t y, COLORREF Color);
 	BOOL setMousepadbyLED(size_t led, COLORREF Color);
 	BOOL setKeypadbyCord(size_t x, size_t y, COLORREF Color);
 	BOOL setHeadsetbyLED(size_t led, COLORREF Color);
-
 
 	BOOL setKeyboardbyRow(size_t Row, COLORREF Color);
 	BOOL setKeyboardbyCol(size_t Col, COLORREF Color);
@@ -69,15 +68,15 @@ public:
 	BOOL setKeypadbyRow(size_t Row, COLORREF Color);
 	BOOL setKeypadbyCol(size_t Col, COLORREF Color);
 
-
+	//Reactive Effect
 	static BOOL setKeyboardReactive(size_t Duration, COLORREF Color);
 	static BOOL setKeypadReactive(size_t Duration, COLORREF Color);
-
+	//Wave Effect
 	static BOOL setKeyboardWave(size_t direction);
 	static BOOL setKeypadWave(size_t direction);
 	static BOOL setMouseWave(size_t direction);
 	static BOOL setMousepadWave(size_t direction);
-
+	//Breathing Effect
 	static BOOL setKeyboardBreathing(bool mode, COLORREF first, COLORREF second);
 	static BOOL setKeypadBreathing(bool mode, COLORREF first, COLORREF second);
 	static BOOL setMouseBreathing(bool mode, COLORREF first, COLORREF second);
@@ -87,7 +86,7 @@ public:
 
 
 
-
+	//clear Grid
 	BOOL clearKeyboardEffect();
 	BOOL clearMouseEffect();
 	BOOL clearKeypadEffect();
@@ -101,7 +100,7 @@ public:
 	BOOL applyKeypadEffect();
 	BOOL applyHeadsetEffect();
 
-
+	//Constants
 	static size_t Keyboard_MaxCol();
 	static size_t Keyboard_MaxRow();
 	static size_t Keyboard_MaxLED();

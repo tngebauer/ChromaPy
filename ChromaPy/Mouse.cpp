@@ -20,7 +20,7 @@ PyObject* set_mouse(PyObject* self, PyObject* args)
 
 
 
-	return PyUnicode_FromString("Succes");
+	return PyUnicode_FromString("Success");
 }
 
 PyObject* set_mousebycord(PyObject* self, PyObject* args)

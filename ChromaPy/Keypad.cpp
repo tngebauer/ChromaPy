@@ -21,7 +21,7 @@ PyObject* set_keypad(PyObject* self, PyObject* args)
 
 
 
-	return PyUnicode_FromString("Succes");
+	return PyUnicode_FromString("Success");
 }
 
 PyObject* set_keypadbycord(PyObject* self, PyObject* args)
