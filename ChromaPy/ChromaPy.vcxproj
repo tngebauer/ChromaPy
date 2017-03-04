@@ -83,13 +83,13 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetExt>.pyd</TargetExt>
     <TargetName>$(ProjectName)_d</TargetName>
-    <IncludePath>D:\Python\Python 3.6 32\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Python\Python 3.6 32\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\Python\Python 3.6 32\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Python\Python 3.6 32\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
     <TargetExt>.pyd</TargetExt>
     <ReferencePath>$(ReferencePath)</ReferencePath>
   </PropertyGroup>
