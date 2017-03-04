@@ -5,7 +5,6 @@
 #include "Headset.h"
 using namespace std;
 
-
 Chroma_Implementation Chroma;
 
 
@@ -15,12 +14,13 @@ PyObject* set_all(PyObject* self, PyObject* args)
 	PyObject *Color;
 	if(!PyArg_ParseTuple(args,"O",&Color))
 	{
-		return 0;
+		PyErr_SetString(SyntaxError, "Invalid Arguments! Usage: setColor(color) | setColor( (R, G, B))");
+		return nullptr;
 	}
 	
 	
 	COLORREF color;
-	if(!Chroma.testandsetColor(Color,color))
+	if(!Chroma.Colortest(Color,color))
 	{
 		return PyUnicode_FromString("Error");
 	}
@@ -194,11 +194,6 @@ PyMethodDef ChromaPyMethods[] = {
 };
 
 
-
-
-
-
-
 static struct PyModuleDef ChromaPy = {
 	PyModuleDef_HEAD_INIT,
 	"ChromaPy",   /* name of module */
@@ -209,7 +204,7 @@ static struct PyModuleDef ChromaPy = {
 };
 
 PyMODINIT_FUNC
-PyInit_ChromaPy32()
+PyInit_ChromaPy()
 {
 	PyObject* m;
 	Chroma.Initialize();

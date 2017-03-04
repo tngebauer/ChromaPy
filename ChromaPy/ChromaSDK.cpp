@@ -175,10 +175,7 @@ BOOL Chroma_Implementation::set_all(COLORREF Color)
 
 	return true;
 }
-BOOL Chroma_Implementation::setKeyboard(COLORREF Color)
-{
-
-
+BOOL Chroma_Implementation::setKeyboard(COLORREF Color){
 	for (UINT row = 0; row < ChromaSDK::Keyboard::MAX_ROW; row++) {
 		for (UINT col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN; col++) {
 			this->Keyboard_Effect.Color[row][col] = Color;
@@ -190,28 +187,14 @@ BOOL Chroma_Implementation::setKeyboard(COLORREF Color)
 
 	return TRUE;
 }
-BOOL Chroma_Implementation::setMousepad(COLORREF Color)
-{
-
-
-
-
-
+BOOL Chroma_Implementation::setMousepad(COLORREF Color){
 	for (UINT count = 0; count < ChromaSDK::Mousepad::MAX_LEDS; count++) {
 		this->Mousepad_Effect.Color[count] = Color;
 	}
 
 	return TRUE;
 }
-BOOL Chroma_Implementation::setMouse(COLORREF Color)
-{
-
-
-
-
-
-
-
+BOOL Chroma_Implementation::setMouse(COLORREF Color){
 	for (UINT row = 0; row < ChromaSDK::Mouse::MAX_ROW; row++) {
 		for (UINT col = 0; col < ChromaSDK::Mouse::MAX_COLUMN; col++) {
 			this->Mouse_Effect.Color[row][col] = Color;
@@ -247,10 +230,7 @@ BOOL Chroma_Implementation::setKeyboardbyCord(size_t x, size_t y, COLORREF Color
 		this->Keyboard_Effect.Color[y][x] = Color;
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+	else { return FALSE; }
 }
 //Set Mouse by x- and y-cords
 BOOL Chroma_Implementation::setMousebyCord(size_t x, size_t y, COLORREF Color)
@@ -261,10 +241,7 @@ BOOL Chroma_Implementation::setMousebyCord(size_t x, size_t y, COLORREF Color)
 		this->Mouse_Effect.Color[y][x] = Color;
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+	else{ return FALSE; }
 }
 //set Mousepad by LEDs
 BOOL Chroma_Implementation::setMousepadbyLED(size_t led, COLORREF Color)
@@ -275,10 +252,7 @@ BOOL Chroma_Implementation::setMousepadbyLED(size_t led, COLORREF Color)
 		this->Mousepad_Effect.Color[led] = Color;
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+	else { return FALSE; }
 
 }
 
@@ -291,10 +265,7 @@ BOOL Chroma_Implementation::setKeypadbyCord(size_t x, size_t y, COLORREF Color) 
 		this->Keypad_Effect.Color[y][x] = Color;
 		return TRUE;
 	}
-	else
-	{
-		return FALSE;
-	}
+	else { return FALSE; }
 
 
 }
@@ -306,9 +277,7 @@ BOOL Chroma_Implementation::setHeadsetbyLED(size_t led, COLORREF Color) {
 		this->Headset_Effect.Color[led] = Color;
 		return TRUE;
 	}
-	else {
-		return FALSE;
-	}
+	else { return FALSE; }
 }
 //Apply effects
 BOOL Chroma_Implementation::applyMouseEffect()
@@ -486,40 +455,21 @@ BOOL Chroma_Implementation::clearHeadsetEffect()
 
 
 
-bool Chroma_Implementation::testandsetColor(PyObject *Color, COLORREF &color)
+bool Chroma_Implementation::Colortest(PyObject *InputColor, COLORREF &color)
 {
-	if (PyTuple_Size(Color) != 3)
-	{
-		return false;
-	}
-	int R;
-	int B;
-	int G;
+	if (PyTuple_Size(InputColor) != 3) { return false; }
+	int R, G, B;
 
 	try {
-		R = static_cast<int>(PyLong_AsLong(PyTuple_GetItem(Color, 0)));
-
-		G = static_cast<int>(PyLong_AsLong(PyTuple_GetItem(Color, 1)));
-
-
-		B = static_cast<int>(PyLong_AsLong(PyTuple_GetItem(Color, 2)));
-
-	}catch(...)
-	{
-		return false;
+		R = static_cast<int>(PyLong_AsLong(PyTuple_GetItem(InputColor, 0)));
+		G = static_cast<int>(PyLong_AsLong(PyTuple_GetItem(InputColor, 1)));
+		B = static_cast<int>(PyLong_AsLong(PyTuple_GetItem(InputColor, 2)));
 	}
-	if (R < 0 || R > 255)
-	{
-		return false;
-	}
-	if (G < 0 || G > 255)
-	{
-		return false;
-	}
-	if (B < 0 || B > 255)
-	{
-		return false;
-	}
+	catch(...){ return false; }
+
+	if (R < 0 || R > 255){ return false; }
+	if (G < 0 || G > 255){ return false; }
+	if (B < 0 || B > 255){ return false; }
 	color = RGB(R, G, B);
 	return true;
 }
@@ -645,7 +595,6 @@ BOOL Chroma_Implementation::setMouseWave(size_t direction) {
 	ChromaSDK::Mouse::WAVE_EFFECT_TYPE Wave_Effect = {};
 
 	switch (direction) {
-
 	case 1:
 		Wave_Effect.Direction = Wave_Effect.FRONT_TO_BACK;
 		break;
@@ -653,7 +602,7 @@ BOOL Chroma_Implementation::setMouseWave(size_t direction) {
 		Wave_Effect.Direction = Wave_Effect.BACK_TO_FRONT;
 		break;
 	default:
-		;
+		return FALSE;
 	}
 
 	CreateMouseEffect(ChromaSDK::Mouse::CHROMA_WAVE, &Wave_Effect, nullptr);
@@ -728,9 +677,8 @@ BOOL Chroma_Implementation::setMouseBreathing(bool mode, COLORREF first, COLORRE
 		Breathing_Effect.Color1 = first;
 		Breathing_Effect.Color2 = second;
 	}
-	if (mode == 0) {
-		Breathing_Effect.Type = Breathing_Effect.RANDOM_COLORS;
-	}
+
+	if (mode == 0) { Breathing_Effect.Type = Breathing_Effect.RANDOM_COLORS; }
 
 	CreateMouseEffect(ChromaSDK::Mouse::CHROMA_BREATHING, &Breathing_Effect, nullptr);
 
@@ -744,9 +692,7 @@ BOOL Chroma_Implementation::setMousepadBreathing(bool mode, COLORREF first, COLO
 		Breathing_Effect.Color1 = first;
 		Breathing_Effect.Color2 = second;
 	}
-	if (mode == 0) {
-		Breathing_Effect.Type = Breathing_Effect.RANDOM_COLORS;
-	}
+	if (mode == 0) { Breathing_Effect.Type = Breathing_Effect.RANDOM_COLORS; }
 
 	CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_BREATHING, &Breathing_Effect, nullptr);
 
@@ -756,7 +702,6 @@ BOOL Chroma_Implementation::setHeadsetBreathing(COLORREF first) {
 	ChromaSDK::Headset::BREATHING_EFFECT_TYPE Breathing_Effect = {};
 
 	Breathing_Effect.Color = first;
-
 
 	CreateHeadsetEffect(ChromaSDK::Headset::CHROMA_BREATHING, &Breathing_Effect, nullptr);
 

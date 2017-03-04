@@ -11,7 +11,7 @@ PyObject* set_mouse(PyObject* self, PyObject* args)
 
 
 	COLORREF color;
-	if (!Chroma.testandsetColor(Color, color))
+	if (!Chroma.Colortest(Color, color))
 	{
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
@@ -37,7 +37,7 @@ PyObject* set_mousebycord(PyObject* self, PyObject* args)
 
 
 	COLORREF color;
-	if (!Chroma.testandsetColor(Color, color))
+	if (!Chroma.Colortest(Color, color))
 	{
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
@@ -64,7 +64,7 @@ PyObject* set_mousebyrow(PyObject* self, PyObject* args)
 
 
 	COLORREF color;
-	if (!Chroma.testandsetColor(Color, color))
+	if (!Chroma.Colortest(Color, color))
 	{
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
@@ -91,7 +91,7 @@ PyObject* set_mousebycol(PyObject* self, PyObject* args)
 
 
 	COLORREF color;
-	if (!Chroma.testandsetColor(Color, color))
+	if (!Chroma.Colortest(Color, color))
 	{
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
@@ -180,12 +180,12 @@ PyObject* BreathingEffectMouse(PyObject* self, PyObject* args) {
 
 	if (it == true) {
 
-		if (!Chroma.testandsetColor(first, FIRST))
+		if (!Chroma.Colortest(first, FIRST))
 		{
 			PyErr_SetString(SyntaxError, "Invalid Arguments! First color needs to be (0-255, 0-255, 0-255)");
 			return nullptr;
 		}
-		if (!Chroma.testandsetColor(second, SECOND))
+		if (!Chroma.Colortest(second, SECOND))
 		{
 			PyErr_SetString(SyntaxError, "Invalid Arguments! Second color needs to be (0-255, 0-255, 0-255)");
 			return nullptr;

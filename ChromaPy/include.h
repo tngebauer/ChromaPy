@@ -13,4 +13,3 @@
 #include "ChromaSDK\RzChromaSDKTypes.h"
 #include "ChromaSDK\RzErrors.h"
 
-static PyObject *SyntaxError;

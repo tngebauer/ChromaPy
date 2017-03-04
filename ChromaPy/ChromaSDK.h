@@ -114,7 +114,7 @@ public:
 	static size_t Keypad_MaxLED();
 	static size_t Headset_MaxLED();
 
-	static bool testandsetColor(PyObject *Color, COLORREF &color);
+	static bool Colortest(PyObject *Color, COLORREF &color);
 
 	static BOOL IsDeviceConnected(RZDEVICEID DeviceId);
 
@@ -125,5 +125,5 @@ private:
 
 
 extern Chroma_Implementation Chroma;
-
+static PyObject *SyntaxError;
 #endif

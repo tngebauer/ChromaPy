@@ -12,7 +12,7 @@ PyObject* set_keyboard(PyObject* self, PyObject* args)
 
 
 	COLORREF color;
-	if (!Chroma.testandsetColor(Color, color))
+	if (!Chroma.Colortest(Color, color))
 	{
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
@@ -39,7 +39,7 @@ PyObject* set_keyboardbycord(PyObject* self, PyObject* args)
 
 
 	COLORREF color;
-	if (!Chroma.testandsetColor(Color, color))
+	if (!Chroma.Colortest(Color, color))
 	{
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
@@ -66,7 +66,7 @@ PyObject* set_keyboardbyrow(PyObject* self, PyObject* args)
 
 
 	COLORREF color;
-	if (!Chroma.testandsetColor(Color, color))
+	if (!Chroma.Colortest(Color, color))
 	{
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
@@ -93,7 +93,7 @@ PyObject* set_keyboardbycol(PyObject* self, PyObject* args)
 
 
 	COLORREF color;
-	if (!Chroma.testandsetColor(Color, color))
+	if (!Chroma.Colortest(Color, color))
 	{
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
@@ -140,7 +140,7 @@ PyObject* ReactiveEffectKeyboard(PyObject* self, PyObject* args) {
 		return nullptr;
 	}
 	COLORREF color;
-	if (!Chroma.testandsetColor(Color, color))
+	if (!Chroma.Colortest(Color, color))
 	{
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
@@ -205,12 +205,12 @@ PyObject* BreathingEffectKeyboard(PyObject* self, PyObject* args) {
 
 	if (it == true) {
 
-		if (!Chroma.testandsetColor(first, FIRST))
+		if (!Chroma.Colortest(first, FIRST))
 		{
 			PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 			return nullptr;
 		}
-		if (!Chroma.testandsetColor(second, SECOND))
+		if (!Chroma.Colortest(second, SECOND))
 		{
 			PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 			return nullptr;

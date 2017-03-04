@@ -83,10 +83,8 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetExt>.pyd</TargetExt>
     <TargetName>$(ProjectName)_d</TargetName>
-    <IncludePath>
-    </IncludePath>
-    <LibraryPath>
-    </LibraryPath>
+    <IncludePath>D:\Python\Python 3.6 32\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Python\Python 3.6 32\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -173,6 +171,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ChromaSDK.h" />
+    <ClInclude Include="ChromaSDK\RzChromaSDKDefines.h" />
+    <ClInclude Include="ChromaSDK\RzChromaSDKTypes.h" />
+    <ClInclude Include="ChromaSDK\RzErrors.h" />
     <ClInclude Include="Doc.h" />
     <ClInclude Include="Headset.h" />
     <ClInclude Include="include.h" />
@@ -180,9 +181,6 @@
     <ClInclude Include="Keypad.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Mousepad.h" />
-    <ClInclude Include="RzChromaSDKDefines.h" />
-    <ClInclude Include="RzChromaSDKTypes.h" />
-    <ClInclude Include="RzErrors.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChromaSDK.cpp" />

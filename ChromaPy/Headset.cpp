@@ -12,7 +12,7 @@ PyObject* set_headset(PyObject* self, PyObject* args){
 
 	COLORREF color;
 
-	if (!Chroma.testandsetColor(Color, color)){
+	if (!Chroma.Colortest(Color, color)){
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
 	}
@@ -33,7 +33,7 @@ PyObject* set_headsetbyled(PyObject* self, PyObject* args){
 
 	COLORREF color;
 
-	if (!Chroma.testandsetColor(Color, color)){
+	if (!Chroma.Colortest(Color, color)){
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
 	}
@@ -78,7 +78,7 @@ PyObject* BreathingEffectHeadset(PyObject* self, PyObject* args) {
 	COLORREF FIRST = NULL;
 
 
-	if (!Chroma.testandsetColor(first, FIRST)){
+	if (!Chroma.Colortest(first, FIRST)){
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
 	}
