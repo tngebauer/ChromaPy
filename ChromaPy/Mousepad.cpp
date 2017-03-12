@@ -100,23 +100,23 @@ PyObject*WaveEffectMousepad(PyObject* self, PyObject* args) {
 PyObject* BreathingEffectMousepad(PyObject* self, PyObject* args) {
 
 
-	int mode;
-	bool it;
+	int temp;
+	bool mode;
 	PyObject* first;
 	PyObject* second;
-	if (!PyArg_ParseTuple(args, "IOO", &mode, &first, &second))
+	if (!PyArg_ParseTuple(args, "IOO", &temp, &first, &second))
 	{
 		return nullptr;
 	}
 	COLORREF FIRST = NULL;
 	COLORREF SECOND = NULL;
-	if (mode == 0)
+	if (temp == 0)
 	{
-		it = false;
+		mode = false;
 	}
-	else if (mode == 1)
+	else if (temp == 1)
 	{
-		it = true;
+		mode = true;
 	}
 	else
 	{
@@ -125,7 +125,7 @@ PyObject* BreathingEffectMousepad(PyObject* self, PyObject* args) {
 	}
 
 
-	if (it == true) {
+	if (mode == true) {
 
 		if (!Chroma.Colortest(first, FIRST))
 		{
@@ -138,11 +138,9 @@ PyObject* BreathingEffectMousepad(PyObject* self, PyObject* args) {
 			return nullptr;
 		}
 
-
 	}
 
-	Chroma.setMousepadBreathing(it, FIRST, SECOND);
-
+	Chroma.setMousepadBreathing(mode, FIRST, SECOND);
 
 	return PyUnicode_FromString("Success");
 }

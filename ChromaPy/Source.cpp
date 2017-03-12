@@ -3,10 +3,10 @@
 #include "Header\Mousepad.h"
 #include "Header\Keypad.h"
 #include "Header\Headset.h"
-using namespace std;
 
+
+PyObject *SyntaxError;
 Chroma_Implementation Chroma;
-
 
 PyObject* set_all(PyObject* self, PyObject* args)
 {
@@ -26,12 +26,6 @@ PyObject* set_all(PyObject* self, PyObject* args)
 	return PyUnicode_FromString("Success");
 }
 
-
-
-
-
-
-
 PyObject* getconnected(PyObject* self, PyObject* args)
 {
 	vector<char*> devices;
@@ -45,7 +39,6 @@ PyObject* getconnected(PyObject* self, PyObject* args)
 			PyList_SET_ITEM(lst, i, str);
 		}
 		return lst;
-	
 }
 
 PyObject* applyEffect(PyObject* self, PyObject* args){

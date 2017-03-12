@@ -22,7 +22,7 @@
     <ProjectGuid>{684A795F-4A20-4D41-9751-6E0DFFFC5178}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ChromaPy</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -168,17 +168,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ChromaSDK.h" />
     <ClInclude Include="ChromaSDK\RzChromaSDKDefines.h" />
     <ClInclude Include="ChromaSDK\RzChromaSDKTypes.h" />
     <ClInclude Include="ChromaSDK\RzErrors.h" />
-    <ClInclude Include="Doc.h" />
-    <ClInclude Include="Headset.h" />
-    <ClInclude Include="include.h" />
-    <ClInclude Include="Keyboard.h" />
-    <ClInclude Include="Keypad.h" />
-    <ClInclude Include="Mouse.h" />
-    <ClInclude Include="Mousepad.h" />
+    <ClInclude Include="Header\ChromaSDK.h" />
+    <ClInclude Include="Header\Doc.h" />
+    <ClInclude Include="Header\Headset.h" />
+    <ClInclude Include="Header\include.h" />
+    <ClInclude Include="Header\Keyboard.h" />
+    <ClInclude Include="Header\Keypad.h" />
+    <ClInclude Include="Header\Mouse.h" />
+    <ClInclude Include="Header\Mousepad.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChromaSDK.cpp" />

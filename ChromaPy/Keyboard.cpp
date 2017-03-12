@@ -24,8 +24,7 @@ PyObject* set_keyboard(PyObject* self, PyObject* args)
 
 PyObject* set_keyboardbycord(PyObject* self, PyObject* args)
 {
-	size_t x;
-	size_t y;
+	size_t x, y;
 
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "llO", &x, &y, &Color))
@@ -34,7 +33,6 @@ PyObject* set_keyboardbycord(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-
 	COLORREF color;
 	if (!Chroma.Colortest(Color, color))
 	{
@@ -42,16 +40,13 @@ PyObject* set_keyboardbycord(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-
 	Chroma.setKeyboardbyCord(x, y, color);
-
 
 	return PyUnicode_FromString("Success");
 }
 
 PyObject* set_keyboardbyrow(PyObject* self, PyObject* args)
 {
-
 	size_t y;
 
 	PyObject *Color;
@@ -61,7 +56,6 @@ PyObject* set_keyboardbyrow(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-
 	COLORREF color;
 	if (!Chroma.Colortest(Color, color))
 	{
@@ -69,16 +63,13 @@ PyObject* set_keyboardbyrow(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-
 	Chroma.setKeyboardbyRow(y, color);
-
 
 	return PyUnicode_FromString("Success");
 }
 
 PyObject* set_keyboardbycol(PyObject* self, PyObject* args)
 {
-
 	size_t x;
 
 	PyObject *Color;
@@ -88,7 +79,6 @@ PyObject* set_keyboardbycol(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-
 	COLORREF color;
 	if (!Chroma.Colortest(Color, color))
 	{
@@ -96,9 +86,7 @@ PyObject* set_keyboardbycol(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-
 	Chroma.setKeyboardbyCol(x, color);
-
 
 	return PyUnicode_FromString("Success");
 }
@@ -112,11 +100,9 @@ PyObject* clear_keyboard(PyObject* self, PyObject* args)
 
 PyObject* applyEffectKeyboard(PyObject* self, PyObject* args)
 {
-
 	Chroma.applyKeyboardEffect();
 
 	return PyUnicode_FromString("Success");
-
 }
 
 PyObject* ResetEffectKeyboard(PyObject* self, PyObject* args) {
@@ -131,21 +117,25 @@ PyObject* ReactiveEffectKeyboard(PyObject* self, PyObject* args) {
 
 	PyObject *Color;
 	int duration;
+	
 	if (!PyArg_ParseTuple(args, "lO", &duration, &Color))
 	{
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Usage: setReactive(duration, color) | setbyGrid(duration, (R, G, B))");
 		return nullptr;
 	}
+	
 	COLORREF color;
 	if (!Chroma.Colortest(Color, color))
 	{
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
 	}
+
 	if (duration < 0 || duration > 3) {
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Duration needs to be 0(short)-3(long)");
 		return nullptr;
 	}
+	
 	Chroma.setKeyboardReactive(duration, color);
 
 	return PyUnicode_FromString("Success");
@@ -173,11 +163,11 @@ PyObject* WaveEffectKeyboard(PyObject* self, PyObject* args) {
 PyObject* BreathingEffectKeyboard(PyObject* self, PyObject* args) {
 
 
-	int mode;
-	bool it;
+	int temp;
+	bool mode;
 	PyObject* first;
 	PyObject* second;
-	if (!PyArg_ParseTuple(args, "IOO", &mode, &first, &second))
+	if (!PyArg_ParseTuple(args, "IOO", &temp, &first, &second))
 	{
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Usage: setBreathing(mode, first color, second color)");
 		return nullptr;
@@ -185,16 +175,16 @@ PyObject* BreathingEffectKeyboard(PyObject* self, PyObject* args) {
 	COLORREF FIRST = NULL;
 	COLORREF SECOND = NULL;
 
-	if (mode == 0){ it = false; }
-	else if (mode == 1) { it = true; }
+	if (temp == 0){ mode = false; }
+	else if (temp == 1) { mode = true; }
 	else
 	{
-		PyErr_SetString(SyntaxError, "Invalid Arguments! Mode needs to be 0(false)-1(true)");
+		PyErr_SetString(SyntaxError, "Invalid Arguments! mode needs to be 0(false)-1(true)");
 		return nullptr;
 	}
 
 
-	if (it == true) {
+	if (mode == true) {
 
 		if (!Chroma.Colortest(first, FIRST))
 		{
@@ -210,7 +200,7 @@ PyObject* BreathingEffectKeyboard(PyObject* self, PyObject* args) {
 
 	}
 
-	Chroma.setKeyboardBreathing(it, FIRST, SECOND);
+	Chroma.setKeyboardBreathing(mode, FIRST, SECOND);
 
 
 	return PyUnicode_FromString("Success");

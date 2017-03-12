@@ -36,12 +36,8 @@ bool Chroma_Implementation::IsDeviceConnected(RZDEVICEID DeviceId)
 		ChromaSDK::DEVICE_INFO_TYPE DeviceInfo = {};
 		RZRESULT Result = QueryDevice(DeviceId, DeviceInfo);
 
-		if (DeviceInfo.Connected == 1) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		if (DeviceInfo.Connected == 1) { return true; }
+		else { return false; }
 
 
 	}
@@ -50,7 +46,7 @@ bool Chroma_Implementation::IsDeviceConnected(RZDEVICEID DeviceId)
 }
 
 
-Chroma_Implementation::Chroma_Implementation() :m_ChromaSDKModule(nullptr)
+Chroma_Implementation::Chroma_Implementation() :ChromaModule(nullptr)
 {
 
 }
@@ -60,10 +56,10 @@ Chroma_Implementation::~Chroma_Implementation()
 
 BOOL Chroma_Implementation::Initialize()
 {
-	if (m_ChromaSDKModule == nullptr)
+	if (ChromaModule == nullptr)
 	{
-		m_ChromaSDKModule = LoadLibrary(CHROMASDKDLL);
-		if (m_ChromaSDKModule == nullptr)
+		ChromaModule = LoadLibrary(CHROMASDKDLL);
+		if (ChromaModule == nullptr)
 		{
 			return FALSE;
 		}
@@ -72,38 +68,24 @@ BOOL Chroma_Implementation::Initialize()
 	if (Init == nullptr)
 	{
 		RZRESULT Result = RZRESULT_INVALID;
-		Init = reinterpret_cast<INIT>(GetProcAddress(m_ChromaSDKModule, "Init"));
+		Init = reinterpret_cast<INIT>(GetProcAddress(ChromaModule, "Init"));
 		if (Init)
 		{
 			Result = Init();
 			if (Result == RZRESULT_SUCCESS)
 			{
-				CreateEffect = reinterpret_cast<CREATEEFFECT>(GetProcAddress(m_ChromaSDKModule, "CreateEffect"));
-				CreateKeyboardEffect = reinterpret_cast<CREATEKEYBOARDEFFECT>(GetProcAddress(m_ChromaSDKModule, "CreateKeyboardEffect"));
-				CreateMouseEffect = reinterpret_cast<CREATEMOUSEEFFECT>(GetProcAddress(m_ChromaSDKModule, "CreateMouseEffect"));
-				CreateHeadsetEffect = reinterpret_cast<CREATEHEADSETEFFECT>(GetProcAddress(m_ChromaSDKModule, "CreateHeadsetEffect"));
-				CreateMousepadEffect = reinterpret_cast<CREATEMOUSEPADEFFECT>(GetProcAddress(m_ChromaSDKModule, "CreateMousepadEffect"));
-				CreateKeypadEffect = reinterpret_cast<CREATEKEYPADEFFECT>(GetProcAddress(m_ChromaSDKModule, "CreateKeypadEffect"));
-				SetEffect = reinterpret_cast<SETEFFECT>(GetProcAddress(m_ChromaSDKModule, "SetEffect"));
-				DeleteEffect = reinterpret_cast<DELETEEFFECT>(GetProcAddress(m_ChromaSDKModule, "DeleteEffect"));
-				QueryDevice = reinterpret_cast<QUERYDEVICE>(GetProcAddress(m_ChromaSDKModule, "QueryDevice"));
+				CreateEffect = reinterpret_cast<CREATEEFFECT>(GetProcAddress(ChromaModule, "CreateEffect"));
+				CreateKeyboardEffect = reinterpret_cast<CREATEKEYBOARDEFFECT>(GetProcAddress(ChromaModule, "CreateKeyboardEffect"));
+				CreateMouseEffect = reinterpret_cast<CREATEMOUSEEFFECT>(GetProcAddress(ChromaModule, "CreateMouseEffect"));
+				CreateHeadsetEffect = reinterpret_cast<CREATEHEADSETEFFECT>(GetProcAddress(ChromaModule, "CreateHeadsetEffect"));
+				CreateMousepadEffect = reinterpret_cast<CREATEMOUSEPADEFFECT>(GetProcAddress(ChromaModule, "CreateMousepadEffect"));
+				CreateKeypadEffect = reinterpret_cast<CREATEKEYPADEFFECT>(GetProcAddress(ChromaModule, "CreateKeypadEffect"));
+				SetEffect = reinterpret_cast<SETEFFECT>(GetProcAddress(ChromaModule, "SetEffect"));
+				DeleteEffect = reinterpret_cast<DELETEEFFECT>(GetProcAddress(ChromaModule, "DeleteEffect"));
+				QueryDevice = reinterpret_cast<QUERYDEVICE>(GetProcAddress(ChromaModule, "QueryDevice"));
 
-				if (CreateEffect &&
-					CreateKeyboardEffect &&
-					CreateMouseEffect &&
-					CreateHeadsetEffect &&
-					CreateMousepadEffect &&
-					CreateKeypadEffect &&
-					SetEffect &&
-					DeleteEffect &&
-					QueryDevice)
-				{
-					return TRUE;
-				}
-				else
-				{
-					return FALSE;
-				}
+				if (CreateEffect && CreateKeyboardEffect && CreateMouseEffect && CreateHeadsetEffect && CreateMousepadEffect && CreateKeypadEffect && SetEffect && DeleteEffect && QueryDevice) { return TRUE; }
+				else { return FALSE; }
 			}
 		}
 	}
@@ -115,66 +97,32 @@ void Chroma_Implementation::ResetEffects(UINT DeviceType)
 	switch (DeviceType)
 	{
 	case 0:
-		if (CreateKeyboardEffect)
-		{
-			CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_NONE, nullptr, nullptr);
-		}
-
-		if (CreateMousepadEffect)
-		{
-			CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_NONE, nullptr, nullptr);
-		}
-
-		if (CreateMouseEffect)
-		{
-			CreateMouseEffect(ChromaSDK::Mouse::CHROMA_NONE, nullptr, nullptr);
-		}
-
-		if (CreateHeadsetEffect)
-		{
-			CreateHeadsetEffect(ChromaSDK::Headset::CHROMA_NONE, nullptr, nullptr);
-		}
-
-		if (CreateKeypadEffect)
-		{
-			CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_NONE, nullptr, nullptr);
-		}
+		if (CreateKeyboardEffect) { CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_NONE, nullptr, nullptr); }
+		if (CreateMousepadEffect) { CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_NONE, nullptr, nullptr); }
+		if (CreateMouseEffect) { CreateMouseEffect(ChromaSDK::Mouse::CHROMA_NONE, nullptr, nullptr); }
+		if (CreateHeadsetEffect) { CreateHeadsetEffect(ChromaSDK::Headset::CHROMA_NONE, nullptr, nullptr); }
+		if (CreateKeypadEffect) { CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_NONE, nullptr, nullptr); }
 		break;
 	case 1:
-		if (CreateKeyboardEffect)
-		{
-			CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_NONE, nullptr, nullptr);
-		}
+		if (CreateKeyboardEffect) { CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_NONE, nullptr, nullptr); }
 		break;
 	case 2:
-		if (CreateMousepadEffect)
-		{
-			CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_NONE, nullptr, nullptr);
-		}
+		if (CreateMousepadEffect) { CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_NONE, nullptr, nullptr); }
 		break;
 	case 3:
-		if (CreateMouseEffect)
-		{
-			CreateMouseEffect(ChromaSDK::Mouse::CHROMA_NONE, nullptr, nullptr);
-		}
+		if (CreateMouseEffect) { CreateMouseEffect(ChromaSDK::Mouse::CHROMA_NONE, nullptr, nullptr); }
 		break;
 	case 4:
-		if (CreateHeadsetEffect)
-		{
-			CreateHeadsetEffect(ChromaSDK::Headset::CHROMA_NONE, nullptr, nullptr);
-		}
+		if (CreateHeadsetEffect) { CreateHeadsetEffect(ChromaSDK::Headset::CHROMA_NONE, nullptr, nullptr); }
 		break;
 	case 5:
-		if (CreateKeypadEffect)
-		{
-			CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_NONE, nullptr, nullptr);
-		}
+		if (CreateKeypadEffect) { CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_NONE, nullptr, nullptr); }
 		break;
 	default: ;
 	}
 }
 
-void Chroma_Implementation::ConnectedDevices(std::vector<char*> &devices) 
+void Chroma_Implementation::ConnectedDevices(vector<char*> &devices) 
 {
 	if (Chroma.IsDeviceConnected(ChromaSDK::BLACKWIDOW_CHROMA)) { devices.push_back("BLACKWIDOW_CHROMA"); }
 	if (Chroma.IsDeviceConnected(ChromaSDK::BLACKWIDOW_CHROMA_TE)) { devices.push_back("BLACKWIDOW_CHROMA_TE"); }
@@ -212,7 +160,6 @@ BOOL Chroma_Implementation::set_all(COLORREF Color)
 	this->setKeyboard(Color);
 	this->setMouse(Color);
 	this->setMousepad(Color);
-
 	return true;
 }
 BOOL Chroma_Implementation::setKeyboard(COLORREF Color){
@@ -417,8 +364,6 @@ BOOL Chroma_Implementation::clearHeadsetEffect(){
 	return TRUE;
 }
 
-
-
 bool Chroma_Implementation::Colortest(PyObject *InputColor, COLORREF &color){
 	if (PyTuple_Size(InputColor) != 3) { return false; }
 	int R, G, B;
@@ -436,8 +381,6 @@ bool Chroma_Implementation::Colortest(PyObject *InputColor, COLORREF &color){
 	color = RGB(R, G, B);
 	return true;
 }
-
-
 
 BOOL Chroma_Implementation::setKeyboardReactive(size_t Duration, COLORREF Color) {
 

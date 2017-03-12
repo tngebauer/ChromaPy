@@ -13,3 +13,4 @@
 #include "ChromaSDK\RzChromaSDKTypes.h"
 #include "ChromaSDK\RzErrors.h"
 
+using namespace std;

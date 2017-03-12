@@ -152,11 +152,11 @@ PyObject*WaveEffectMouse(PyObject* self, PyObject* args) {
 PyObject* BreathingEffectMouse(PyObject* self, PyObject* args) {
 
 
-	int mode;
-	bool it;
+	int temp;
+	bool mode;
 	PyObject* first;
 	PyObject* second;
-	if (!PyArg_ParseTuple(args, "IOO", &mode, &first, &second))
+	if (!PyArg_ParseTuple(args, "IOO", &temp, &first, &second))
 	{
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Usage: setBreathing(mode, first color, second color)");
 		return nullptr;
@@ -164,13 +164,13 @@ PyObject* BreathingEffectMouse(PyObject* self, PyObject* args) {
 	COLORREF FIRST = NULL;
 	COLORREF SECOND = NULL;
 
-	if (mode == 0)
+	if (temp == 0)
 	{
-		it = false;
+		mode = false;
 	}
-	else if (mode == 1)
+	else if (temp == 1)
 	{
-		it = true;
+		mode = true;
 	}
 	else
 	{
@@ -178,7 +178,7 @@ PyObject* BreathingEffectMouse(PyObject* self, PyObject* args) {
 		return nullptr;
 	}
 
-	if (it == true) {
+	if (mode == true) {
 
 		if (!Chroma.Colortest(first, FIRST))
 		{
@@ -190,12 +190,9 @@ PyObject* BreathingEffectMouse(PyObject* self, PyObject* args) {
 			PyErr_SetString(SyntaxError, "Invalid Arguments! Second color needs to be (0-255, 0-255, 0-255)");
 			return nullptr;
 		}
-
-
 	}
 
-	Chroma.setMouseBreathing(it, FIRST, SECOND);
-
+	Chroma.setMouseBreathing(mode, FIRST, SECOND);
 
 	return PyUnicode_FromString("Success");
 }

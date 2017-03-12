@@ -34,16 +34,22 @@ const COLORREF GREY = RGB(125, 125, 125);
 
 class Chroma_Implementation
 {
-public:
+private:
+	HMODULE ChromaModule;
+
 	ChromaSDK::Keyboard::CUSTOM_EFFECT_TYPE Keyboard_Effect = {};
 	ChromaSDK::Mouse::CUSTOM_EFFECT_TYPE2 Mouse_Effect = {};
 	ChromaSDK::Mousepad::CUSTOM_EFFECT_TYPE Mousepad_Effect = {};
 	ChromaSDK::Keypad::CUSTOM_EFFECT_TYPE Keypad_Effect = {};
 	ChromaSDK::Headset::CUSTOM_EFFECT_TYPE Headset_Effect = {};
 
+	static bool IsDeviceConnected(RZDEVICEID DeviceId);
+
+public:
 	Chroma_Implementation();
 	~Chroma_Implementation();
 	BOOL Initialize();
+
 	//Static Effect
 	static void ResetEffects(UINT DeviceType);
 	BOOL set_all(COLORREF Color);
@@ -71,20 +77,19 @@ public:
 	//Reactive Effect
 	static BOOL setKeyboardReactive(size_t Duration, COLORREF Color);
 	static BOOL setKeypadReactive(size_t Duration, COLORREF Color);
+
 	//Wave Effect
 	static BOOL setKeyboardWave(size_t direction);
 	static BOOL setKeypadWave(size_t direction);
 	static BOOL setMouseWave(size_t direction);
 	static BOOL setMousepadWave(size_t direction);
+
 	//Breathing Effect
 	static BOOL setKeyboardBreathing(bool mode, COLORREF first, COLORREF second);
 	static BOOL setKeypadBreathing(bool mode, COLORREF first, COLORREF second);
 	static BOOL setMouseBreathing(bool mode, COLORREF first, COLORREF second);
 	static BOOL setMousepadBreathing(bool mode, COLORREF first, COLORREF second);
 	static BOOL setHeadsetBreathing(COLORREF first);
-
-
-
 
 	//clear Grid
 	BOOL clearKeyboardEffect();
@@ -115,15 +120,10 @@ public:
 
 	static bool Colortest(PyObject *Color, COLORREF &color);
 
-	static bool IsDeviceConnected(RZDEVICEID DeviceId);
-	static void ConnectedDevices(std::vector<char*> &devices);
-
-private:
-	HMODULE m_ChromaSDKModule;
+	static void ConnectedDevices(vector<char*> &devices);
 
 };
 
-
 extern Chroma_Implementation Chroma;
-static PyObject *SyntaxError;
+extern PyObject *SyntaxError;
 #endif
