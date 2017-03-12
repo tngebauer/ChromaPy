@@ -27,7 +27,12 @@ PyObject* set_headsetbyled(PyObject* self, PyObject* args){
 
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "lO", &x, &Color)){
-		PyErr_SetString(SyntaxError, "Invalid Arguments! Usage: setbyLED(led, color) | setbyLED(led, (R, G, B))");
+		PyErr_SetString(SyntaxError, "Invalid Arguments! Usage: setbyLED(LED, color) | setbyLED(LED, (R, G, B))");
+		return nullptr;
+	}
+
+	if (x > ChromaSDK::Headset::MAX_LEDS || x < 0) {
+		PyErr_SetString(SyntaxError, "Invalid Argument! LED out of range");
 		return nullptr;
 	}
 
@@ -38,23 +43,42 @@ PyObject* set_headsetbyled(PyObject* self, PyObject* args){
 		return nullptr;
 	}
 
-	Chroma.setHeadsetbyLED(x, color);
+	RZRESULT result = Chroma.setHeadsetbyLED(x, color);
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: "+result);
+		return nullptr;
+	}
 
-	return PyUnicode_FromString("Success");
+	
 }
 
 PyObject* clear_headset(PyObject* self, PyObject* args){
 	
-	Chroma.clearHeadsetEffect();
+	RZRESULT result = Chroma.clearHeadsetEffect();
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 PyObject* applyEffectHeadset(PyObject* self, PyObject* args){
 
-	Chroma.applyHeadsetEffect();
+	RZRESULT result = Chroma.applyHeadsetEffect();
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 
 }
 
@@ -63,7 +87,6 @@ PyObject* ResetEffectHeadset(PyObject* self, PyObject* args) {
 	Chroma.ResetEffects(HEADSET_DEVICES);
 
 	return PyUnicode_FromString("Success");
-
 }
 
 PyObject* BreathingEffectHeadset(PyObject* self, PyObject* args) {
@@ -83,9 +106,15 @@ PyObject* BreathingEffectHeadset(PyObject* self, PyObject* args) {
 		return nullptr;
 	}
 
-	Chroma.setHeadsetBreathing(FIRST);
+	RZRESULT result = Chroma.setHeadsetBreathing(FIRST);
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 int Headset_init(ChromaHeadset *self, PyObject *args, PyObject *kwds){

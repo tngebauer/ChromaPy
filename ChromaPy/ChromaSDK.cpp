@@ -404,8 +404,8 @@ BOOL Chroma_Implementation::setKeyboardReactive(size_t Duration, COLORREF Color)
 		Reactive_Effect.Duration = Reactive_Effect.DURATION_INVALID;
 		break;
 	}
-	CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_REACTIVE, &Reactive_Effect, nullptr);
-	return TRUE;
+	return CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_REACTIVE, &Reactive_Effect, nullptr);
+	
 }
 
 BOOL Chroma_Implementation::setKeypadReactive(size_t Duration, COLORREF Color) {
@@ -430,11 +430,8 @@ BOOL Chroma_Implementation::setKeypadReactive(size_t Duration, COLORREF Color) {
 		break;
 	}
 
+	return CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_REACTIVE, &Reactive_Effect, nullptr);
 
-	CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_REACTIVE, &Reactive_Effect, nullptr);
-
-
-	return TRUE;
 }
 
 
@@ -458,9 +455,8 @@ BOOL Chroma_Implementation::setKeyboardWave(size_t direction) {
 		break;
 	}
 
-	CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_WAVE, &Wave_Effect, nullptr);
+	return CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_WAVE, &Wave_Effect, nullptr);
 
-	return TRUE;
 
 }
 
@@ -484,9 +480,7 @@ BOOL Chroma_Implementation::setKeypadWave(size_t direction) {
 		break;
 	}
 
-	CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_WAVE, &Wave_Effect, nullptr);
-
-	return TRUE;
+	return CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_WAVE, &Wave_Effect, nullptr);
 
 }
 
@@ -506,9 +500,7 @@ BOOL Chroma_Implementation::setMouseWave(size_t direction) {
 		return FALSE;
 	}
 
-	CreateMouseEffect(ChromaSDK::Mouse::CHROMA_WAVE, &Wave_Effect, nullptr);
-
-	return TRUE;
+	return CreateMouseEffect(ChromaSDK::Mouse::CHROMA_WAVE, &Wave_Effect, nullptr);
 
 }
 
@@ -532,9 +524,7 @@ BOOL Chroma_Implementation::setMousepadWave(size_t direction) {
 		break;
 	}
 
-	CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_WAVE, &Wave_Effect, nullptr);
-
-	return TRUE;
+	return CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_WAVE, &Wave_Effect, nullptr);
 
 }
 
@@ -550,9 +540,8 @@ BOOL Chroma_Implementation::setKeyboardBreathing(bool mode, COLORREF first, COLO
 		Breathing_Effect.Type = Breathing_Effect.RANDOM_COLORS;
 	}
 
-	CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_BREATHING, &Breathing_Effect, nullptr);
+	return CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_BREATHING, &Breathing_Effect, nullptr);
 
-	return TRUE;
 }
 BOOL Chroma_Implementation::setKeypadBreathing(bool mode, COLORREF first, COLORREF second) {
 	ChromaSDK::Keypad::BREATHING_EFFECT_TYPE Breathing_Effect = {};
@@ -564,9 +553,8 @@ BOOL Chroma_Implementation::setKeypadBreathing(bool mode, COLORREF first, COLORR
 	}
 	if (mode == 0) { Breathing_Effect.Type = Breathing_Effect.RANDOM_COLORS; }
 
-	CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_BREATHING, &Breathing_Effect, nullptr);
+	return CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_BREATHING, &Breathing_Effect, nullptr);
 
-	return TRUE;
 }
 BOOL Chroma_Implementation::setMouseBreathing(bool mode, COLORREF first, COLORREF second) {
 	ChromaSDK::Mouse::BREATHING_EFFECT_TYPE Breathing_Effect = {};
@@ -579,9 +567,8 @@ BOOL Chroma_Implementation::setMouseBreathing(bool mode, COLORREF first, COLORRE
 
 	if (mode == 0) { Breathing_Effect.Type = Breathing_Effect.RANDOM_COLORS; }
 
-	CreateMouseEffect(ChromaSDK::Mouse::CHROMA_BREATHING, &Breathing_Effect, nullptr);
+	return CreateMouseEffect(ChromaSDK::Mouse::CHROMA_BREATHING, &Breathing_Effect, nullptr);
 
-	return TRUE;
 }
 BOOL Chroma_Implementation::setMousepadBreathing(bool mode, COLORREF first, COLORREF second) {
 	ChromaSDK::Mousepad::BREATHING_EFFECT_TYPE Breathing_Effect = {};
@@ -593,17 +580,14 @@ BOOL Chroma_Implementation::setMousepadBreathing(bool mode, COLORREF first, COLO
 	}
 	if (mode == 0) { Breathing_Effect.Type = Breathing_Effect.RANDOM_COLORS; }
 
-	CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_BREATHING, &Breathing_Effect, nullptr);
+	return CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_BREATHING, &Breathing_Effect, nullptr);
 
-	return TRUE;
 }
 BOOL Chroma_Implementation::setHeadsetBreathing(COLORREF first) {
 	ChromaSDK::Headset::BREATHING_EFFECT_TYPE Breathing_Effect = {};
 
 	Breathing_Effect.Color = first;
 
-	CreateHeadsetEffect(ChromaSDK::Headset::CHROMA_BREATHING, &Breathing_Effect, nullptr);
-
-	return TRUE;
+	return CreateHeadsetEffect(ChromaSDK::Headset::CHROMA_BREATHING, &Breathing_Effect, nullptr);
 }
 

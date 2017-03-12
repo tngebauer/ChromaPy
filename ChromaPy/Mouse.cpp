@@ -16,11 +16,17 @@ PyObject* set_mouse(PyObject* self, PyObject* args)
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
 	}
-	Chroma.setMouse(color);
+	RZRESULT result = Chroma.setMouse(color);
 
 
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 PyObject* set_mousebycord(PyObject* self, PyObject* args)
@@ -35,6 +41,14 @@ PyObject* set_mousebycord(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
+	if (x > ChromaSDK::Mouse::MAX_COLUMN || x < 0) {
+		PyErr_SetString(SyntaxError, "Invalid Argument! X-coordinate out of range");
+		return nullptr;
+	}
+	else if (y > ChromaSDK::Mouse::MAX_ROW || y < 0) {
+		PyErr_SetString(SyntaxError, "Invalid Argument! Y-coordinate out of range");
+		return nullptr;
+	}
 
 	COLORREF color;
 	if (!Chroma.Colortest(Color, color))
@@ -44,10 +58,16 @@ PyObject* set_mousebycord(PyObject* self, PyObject* args)
 	}
 
 
-	Chroma.setMousebyCord(x, y, color);
+	RZRESULT result = Chroma.setMousebyCord(x, y, color);
 
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 PyObject* set_mousebyrow(PyObject* self, PyObject* args)
@@ -61,7 +81,10 @@ PyObject* set_mousebyrow(PyObject* self, PyObject* args)
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Usage: setbyRow(row, color) | setbyRow(row, (R, G, B))");
 		return nullptr;
 	}
-
+ if (y > ChromaSDK::Mouse::MAX_ROW || y < 0) {
+		PyErr_SetString(SyntaxError, "Invalid Argument! Y-coordinate out of range");
+		return nullptr;
+	}
 
 	COLORREF color;
 	if (!Chroma.Colortest(Color, color))
@@ -71,10 +94,16 @@ PyObject* set_mousebyrow(PyObject* self, PyObject* args)
 	}
 
 
-	Chroma.setMousebyRow(y, color);
+	RZRESULT result = Chroma.setMousebyRow(y, color);
 
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 PyObject* set_mousebycol(PyObject* self, PyObject* args)
@@ -89,6 +118,10 @@ PyObject* set_mousebycol(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
+	if (x > ChromaSDK::Mouse::MAX_COLUMN || x < 0) {
+		PyErr_SetString(SyntaxError, "Invalid Argument! X-coordinate out of range");
+		return nullptr;
+	}
 
 	COLORREF color;
 	if (!Chroma.Colortest(Color, color))
@@ -97,28 +130,45 @@ PyObject* set_mousebycol(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
+	RZRESULT result = Chroma.setMousebyCol(x, color);
 
-	Chroma.setMousebyCol(x, color);
 
-
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 PyObject* clear_mouse(PyObject* self, PyObject* args)
 {
 
-	Chroma.clearMouseEffect();
+	RZRESULT result = Chroma.clearMouseEffect();
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 
 }
 
 PyObject* applyEffectMouse(PyObject* self, PyObject* args)
 {
 
-	Chroma.applyMouseEffect();
+	RZRESULT result = Chroma.applyMouseEffect();
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 
 }
 
@@ -132,7 +182,6 @@ PyObject* ResetEffectMouse(PyObject* self, PyObject* args) {
 
 PyObject*WaveEffectMouse(PyObject* self, PyObject* args) {
 
-
 	int direction;
 	if (!PyArg_ParseTuple(args, "l", &direction))
 	{
@@ -144,13 +193,18 @@ PyObject*WaveEffectMouse(PyObject* self, PyObject* args) {
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Duration needs to be 1(top to bottom)-2(bottom to top)");
 		return nullptr;
 	}
-	Chroma.setMouseWave(direction);
+	RZRESULT result = Chroma.setMouseWave(direction);
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 PyObject* BreathingEffectMouse(PyObject* self, PyObject* args) {
-
 
 	int temp;
 	bool mode;
@@ -192,7 +246,13 @@ PyObject* BreathingEffectMouse(PyObject* self, PyObject* args) {
 		}
 	}
 
-	Chroma.setMouseBreathing(mode, FIRST, SECOND);
+	RZRESULT result = Chroma.setMouseBreathing(mode, FIRST, SECOND);
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }

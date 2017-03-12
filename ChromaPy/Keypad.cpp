@@ -16,9 +16,15 @@ PyObject* set_keypad(PyObject* self, PyObject* args)
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
 	}
-	Chroma.setKeypad(color);
+	RZRESULT result = Chroma.setKeypad(color);
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 PyObject* set_keypadbycord(PyObject* self, PyObject* args)
@@ -32,6 +38,15 @@ PyObject* set_keypadbycord(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
+	if (x > ChromaSDK::Keypad::MAX_COLUMN || x < 0) {
+		PyErr_SetString(SyntaxError, "Invalid Argument! X-coordinate out of range");
+		return nullptr;
+	}
+	else if (y > ChromaSDK::Keypad::MAX_ROW || y < 0) {
+		PyErr_SetString(SyntaxError, "Invalid Argument! Y-coordinate out of range");
+		return nullptr;
+	}
+
 	COLORREF color;
 	if (!Chroma.Colortest(Color, color))
 	{
@@ -39,9 +54,15 @@ PyObject* set_keypadbycord(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	Chroma.setKeypadbyCord(x, y, color);
+	RZRESULT result = Chroma.setKeypadbyCord(x, y, color);
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 PyObject* set_keypadbyrow(PyObject* self, PyObject* args)
@@ -55,6 +76,10 @@ PyObject* set_keypadbyrow(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
+	if (y > ChromaSDK::Keypad::MAX_ROW || y < 0) {
+		PyErr_SetString(SyntaxError, "Invalid Argument! Y-coordinate out of range");
+		return nullptr;
+	}
 	COLORREF color;
 	if (!Chroma.Colortest(Color, color))
 	{
@@ -62,9 +87,15 @@ PyObject* set_keypadbyrow(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	Chroma.setKeypadbyRow(y, color);
+	RZRESULT result = Chroma.setKeypadbyRow(y, color);
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 
@@ -79,6 +110,11 @@ PyObject* set_keypadbycol(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
+	if (x > ChromaSDK::Keypad::MAX_COLUMN || x < 0) {
+		PyErr_SetString(SyntaxError, "Invalid Argument! X-coordinate out of range");
+		return nullptr;
+	}
+
 	COLORREF color;
 	if (!Chroma.Colortest(Color, color))
 	{
@@ -86,24 +122,41 @@ PyObject* set_keypadbycol(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	Chroma.setKeypadbyCol(x, color);
+	RZRESULT result = Chroma.setKeypadbyCol(x, color);
 
-	return PyUnicode_FromString("Success");
-
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 PyObject* clear_keypad(PyObject* self, PyObject* args)
 {
-	Chroma.clearKeypadEffect();
+	RZRESULT result = Chroma.clearKeypadEffect();
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 PyObject* applyEffectKeypad(PyObject* self, PyObject* args)
 {
-	Chroma.applyKeypadEffect();
+	RZRESULT result = Chroma.applyKeypadEffect();
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 PyObject* ResetEffectKeypad(PyObject* self, PyObject* args) {
@@ -132,9 +185,15 @@ PyObject*ReactiveEffectKeypad(PyObject* self, PyObject* args) {
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Duration needs to be 0(short)-3(long)");
 		return nullptr;
 	}
-	Chroma.setKeypadReactive(duration, color);
+	RZRESULT result = Chroma.setKeypadReactive(duration, color);
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 PyObject*WaveEffectKeypad(PyObject* self, PyObject* args) {
@@ -150,9 +209,15 @@ PyObject*WaveEffectKeypad(PyObject* self, PyObject* args) {
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Duration needs to be 0(left to right)-1(right to left)");
 		return nullptr;
 	}
-	Chroma.setKeypadWave(direction);
+	RZRESULT result = Chroma.setKeypadWave(direction);
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 PyObject* BreathingEffectKeypad(PyObject* self, PyObject* args) {
@@ -194,8 +259,14 @@ PyObject* BreathingEffectKeypad(PyObject* self, PyObject* args) {
 
 	}
 
-	Chroma.setKeypadBreathing(mode, FIRST, SECOND);
+	RZRESULT result = Chroma.setKeypadBreathing(mode, FIRST, SECOND);
 
 
-	return PyUnicode_FromString("Success");
+	if (result == TRUE) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
