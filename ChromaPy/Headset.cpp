@@ -52,7 +52,6 @@ PyObject* set_headsetbyled(PyObject* self, PyObject* args){
 		return nullptr;
 	}
 
-	
 }
 
 PyObject* clear_headset(PyObject* self, PyObject* args){
@@ -79,7 +78,6 @@ PyObject* applyEffectHeadset(PyObject* self, PyObject* args){
 		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
 		return nullptr;
 	}
-
 }
 
 PyObject* ResetEffectHeadset(PyObject* self, PyObject* args) {
@@ -99,7 +97,6 @@ PyObject* BreathingEffectHeadset(PyObject* self, PyObject* args) {
 	}
 
 	COLORREF FIRST = NULL;
-
 
 	if (!Chroma.Colortest(first, FIRST)){
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
