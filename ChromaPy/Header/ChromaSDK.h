@@ -115,7 +115,8 @@ public:
 
 	static bool Colortest(PyObject *Color, COLORREF &color);
 
-	static BOOL IsDeviceConnected(RZDEVICEID DeviceId);
+	static bool IsDeviceConnected(RZDEVICEID DeviceId);
+	static void ConnectedDevices(std::vector<char*> &devices);
 
 private:
 	HMODULE m_ChromaSDKModule;

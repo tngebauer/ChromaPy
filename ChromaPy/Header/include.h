@@ -1,5 +1,6 @@
 #pragma once
 #include <python.h>
+#include "ChromaSDK.h"
 #include <structmember.h>
 #include <vector>
 #include "Doc.h"

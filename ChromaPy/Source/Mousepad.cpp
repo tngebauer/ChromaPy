@@ -1,4 +1,4 @@
-#include "Header\Mousepad.h"
+#include "Mousepad.h"
 
 PyObject* set_mousepad(PyObject* self, PyObject* args)
 {

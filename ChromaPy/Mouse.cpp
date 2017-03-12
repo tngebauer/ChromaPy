@@ -1,4 +1,4 @@
-#include "Mouse.h"
+#include "Header\Mouse.h"
 
 PyObject* set_mouse(PyObject* self, PyObject* args)
 {

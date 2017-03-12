@@ -1,8 +1,8 @@
-#include "Header\Keyboard.h"
-#include "Header\Mouse.h"
-#include "Header\Mousepad.h"
-#include "Header\Keypad.h"
-#include "Header\Headset.h"
+#include "Keyboard.h"
+#include "Mouse.h"
+#include "Mousepad.h"
+#include "Keypad.h"
+#include "Headset.h"
 using namespace std;
 
 Chroma_Implementation Chroma;

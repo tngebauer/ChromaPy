@@ -1,7 +1,6 @@
-#include "Header\Keypad.h"
+#include "Mouse.h"
 
-
-PyObject* set_keypad(PyObject* self, PyObject* args)
+PyObject* set_mouse(PyObject* self, PyObject* args)
 {
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "O", &Color))
@@ -17,14 +16,14 @@ PyObject* set_keypad(PyObject* self, PyObject* args)
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
 	}
-	Chroma.setKeypad(color);
+	Chroma.setMouse(color);
 
 
 
 	return PyUnicode_FromString("Success");
 }
 
-PyObject* set_keypadbycord(PyObject* self, PyObject* args)
+PyObject* set_mousebycord(PyObject* self, PyObject* args)
 {
 	size_t x;
 	size_t y;
@@ -32,7 +31,7 @@ PyObject* set_keypadbycord(PyObject* self, PyObject* args)
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "llO", &x, &y, &Color))
 	{
-		PyErr_SetString(SyntaxError, "Invalid Arguments! Usage: setbyGrid(x, y, color) | setbyGrid(x, y, (R, G, B))");
+		PyErr_SetString(SyntaxError, "Invalid Arguments! Usage: setbyGrid(x, y, color) | setColor(x, y, (R, G, B))");
 		return nullptr;
 	}
 
@@ -45,13 +44,13 @@ PyObject* set_keypadbycord(PyObject* self, PyObject* args)
 	}
 
 
-	Chroma.setKeypadbyCord(x, y, color);
+	Chroma.setMousebyCord(x, y, color);
 
 
 	return PyUnicode_FromString("Success");
 }
 
-PyObject* set_keypadbyrow(PyObject* self, PyObject* args)
+PyObject* set_mousebyrow(PyObject* self, PyObject* args)
 {
 
 	size_t y;
@@ -72,14 +71,13 @@ PyObject* set_keypadbyrow(PyObject* self, PyObject* args)
 	}
 
 
-	Chroma.setKeypadbyRow(y, color);
+	Chroma.setMousebyRow(y, color);
 
 
 	return PyUnicode_FromString("Success");
 }
 
-
-PyObject* set_keypadbycol(PyObject* self, PyObject* args)
+PyObject* set_mousebycol(PyObject* self, PyObject* args)
 {
 
 	size_t x;
@@ -100,65 +98,39 @@ PyObject* set_keypadbycol(PyObject* self, PyObject* args)
 	}
 
 
-	Chroma.setKeypadbyCol(x, color);
+	Chroma.setMousebyCol(x, color);
 
 
 	return PyUnicode_FromString("Success");
-
-
 }
 
-PyObject* clear_keypad(PyObject* self, PyObject* args)
+PyObject* clear_mouse(PyObject* self, PyObject* args)
 {
 
-	Chroma.clearKeypadEffect();
+	Chroma.clearMouseEffect();
 
 	return PyUnicode_FromString("Success");
 
 }
 
-PyObject* applyEffectKeypad(PyObject* self, PyObject* args)
+PyObject* applyEffectMouse(PyObject* self, PyObject* args)
 {
 
-	Chroma.applyKeypadEffect();
+	Chroma.applyMouseEffect();
 
 	return PyUnicode_FromString("Success");
 
 }
 
-PyObject* ResetEffectKeypad(PyObject* self, PyObject* args) {
+PyObject* ResetEffectMouse(PyObject* self, PyObject* args) {
 
-	Chroma.ResetEffects(KEYPAD_DEVICES);
+	Chroma.ResetEffects(MOUSE_DEVICES);
 
 	return PyUnicode_FromString("Success");
 
 }
 
-PyObject*ReactiveEffectKeypad(PyObject* self, PyObject* args) {
-
-	PyObject *Color;
-	int duration;
-	if (!PyArg_ParseTuple(args, "lO", &duration, &Color))
-	{
-		PyErr_SetString(SyntaxError, "Invalid Arguments! Usage: setReactive(duration, color) | setbyGrid(duration, (R, G, B))");
-		return nullptr;
-	}
-	COLORREF color;
-	if (!Chroma.Colortest(Color, color))
-	{
-		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
-		return nullptr;
-	}
-	if (duration < 0 || duration > 3) {
-		PyErr_SetString(SyntaxError, "Invalid Arguments! Duration needs to be 0(short)-3(long)");
-		return nullptr;
-	}
-	Chroma.setKeypadReactive(duration, color);
-
-	return PyUnicode_FromString("Success");
-}
-
-PyObject*WaveEffectKeypad(PyObject* self, PyObject* args) {
+PyObject*WaveEffectMouse(PyObject* self, PyObject* args) {
 
 
 	int direction;
@@ -169,15 +141,15 @@ PyObject*WaveEffectKeypad(PyObject* self, PyObject* args) {
 	}
 
 	if (direction < 0 || direction > 2) {
-		PyErr_SetString(SyntaxError, "Invalid Arguments! Duration needs to be 0(left to right)-1(right to left)");
+		PyErr_SetString(SyntaxError, "Invalid Arguments! Duration needs to be 1(top to bottom)-2(bottom to top)");
 		return nullptr;
 	}
-	Chroma.setKeypadWave(direction);
+	Chroma.setMouseWave(direction);
 
 	return PyUnicode_FromString("Success");
 }
 
-PyObject* BreathingEffectKeypad(PyObject* self, PyObject* args) {
+PyObject* BreathingEffectMouse(PyObject* self, PyObject* args) {
 
 
 	int mode;
@@ -192,7 +164,10 @@ PyObject* BreathingEffectKeypad(PyObject* self, PyObject* args) {
 	COLORREF FIRST = NULL;
 	COLORREF SECOND = NULL;
 
-	if (mode == 0){ it = false; }
+	if (mode == 0)
+	{
+		it = false;
+	}
 	else if (mode == 1)
 	{
 		it = true;
@@ -207,20 +182,19 @@ PyObject* BreathingEffectKeypad(PyObject* self, PyObject* args) {
 
 		if (!Chroma.Colortest(first, FIRST))
 		{
-			PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
+			PyErr_SetString(SyntaxError, "Invalid Arguments! First color needs to be (0-255, 0-255, 0-255)");
 			return nullptr;
-
 		}
 		if (!Chroma.Colortest(second, SECOND))
 		{
-			PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
+			PyErr_SetString(SyntaxError, "Invalid Arguments! Second color needs to be (0-255, 0-255, 0-255)");
 			return nullptr;
 		}
 
 
 	}
 
-	Chroma.setKeypadBreathing(it, FIRST, SECOND);
+	Chroma.setMouseBreathing(it, FIRST, SECOND);
 
 
 	return PyUnicode_FromString("Success");

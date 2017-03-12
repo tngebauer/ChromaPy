@@ -1,4 +1,4 @@
-#include "Keyboard.h"
+#include "Header\Keyboard.h"
 
 
 PyObject* set_keyboard(PyObject* self, PyObject* args)
@@ -10,7 +10,6 @@ PyObject* set_keyboard(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-
 	COLORREF color;
 	if (!Chroma.Colortest(Color, color))
 	{
@@ -18,8 +17,6 @@ PyObject* set_keyboard(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 	Chroma.setKeyboard(color);
-
-
 
 	return PyUnicode_FromString("Success");
 }
@@ -188,14 +185,8 @@ PyObject* BreathingEffectKeyboard(PyObject* self, PyObject* args) {
 	COLORREF FIRST = NULL;
 	COLORREF SECOND = NULL;
 
-	if (mode == 0)
-	{
-		it = false;
-	}
-	else if (mode == 1)
-	{
-		it = true;
-	}
+	if (mode == 0){ it = false; }
+	else if (mode == 1) { it = true; }
 	else
 	{
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Mode needs to be 0(false)-1(true)");

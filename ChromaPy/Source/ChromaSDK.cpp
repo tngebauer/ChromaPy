@@ -1,4 +1,4 @@
-#include "Header\ChromaSDK.h"
+#include "ChromaSDK.h"
 
 
 typedef RZRESULT(*INIT)();
