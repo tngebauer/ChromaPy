@@ -160,7 +160,7 @@ PyObject* Chroma_Implementation::set_all(COLORREF Color)
 	this->setKeyboard(Color);
 	this->setMouse(Color);
 	this->setMousepad(Color);
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 }
 PyObject* Chroma_Implementation::setKeyboard(COLORREF Color){
 	for (UINT row = 0; row < ChromaSDK::Keyboard::MAX_ROW; row++) {
@@ -169,14 +169,14 @@ PyObject* Chroma_Implementation::setKeyboard(COLORREF Color){
 		}
 	}
 
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");
 }
 PyObject* Chroma_Implementation::setMousepad(COLORREF Color){
 	for (UINT count = 0; count < ChromaSDK::Mousepad::MAX_LEDS; count++) {
 		this->Mousepad_Effect.Color[count] = Color;
 	}
 
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 }
 PyObject* Chroma_Implementation::setMouse(COLORREF Color){
 	for (UINT row = 0; row < ChromaSDK::Mouse::MAX_ROW; row++) {
@@ -185,7 +185,7 @@ PyObject* Chroma_Implementation::setMouse(COLORREF Color){
 		}
 	}
 
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 }
 PyObject* Chroma_Implementation::setKeypad(COLORREF Color) {
 	for (UINT row = 0; row < ChromaSDK::Keypad::MAX_ROW; row++) {
@@ -194,21 +194,21 @@ PyObject* Chroma_Implementation::setKeypad(COLORREF Color) {
 		}
 	}
 
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 }
 PyObject* Chroma_Implementation::setHeadset(COLORREF Color) {
 	for (UINT count = 0; count < ChromaSDK::Headset::MAX_LEDS; count++) {
 		this->Headset_Effect.Color[count] = Color;
 	}
 
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 }
 
 //Set Keyboard by x- and y-cords
 PyObject* Chroma_Implementation::setKeyboardbyCord(size_t x, size_t y, COLORREF Color){
 	if (y < ChromaSDK::Keyboard::MAX_ROW && x < ChromaSDK::Keyboard::MAX_COLUMN){
 		this->Keyboard_Effect.Color[y][x] = Color;
-		return RZRESULT_SUCCESS;
+		return PyUnicode_FromString("Success");;
 	}
 	else { return FALSE; }
 }
@@ -216,26 +216,35 @@ PyObject* Chroma_Implementation::setKeyboardbyCord(size_t x, size_t y, COLORREF 
 PyObject* Chroma_Implementation::setMousebyCord(size_t x, size_t y, COLORREF Color){
 	if (y < ChromaSDK::Mouse::MAX_ROW && x < ChromaSDK::Mouse::MAX_COLUMN){
 		this->Mouse_Effect.Color[y][x] = Color;
-		return RZRESULT_SUCCESS;
+		return PyUnicode_FromString("Success");;
 	}
-	else{ return FALSE; }
+	else{
+		PyErr_SetString(SyntaxError, "ChromaSDK Error!");
+		return nullptr;
+	}
 }
 //set Mousepad by LEDs
 PyObject* Chroma_Implementation::setMousepadbyLED(size_t led, COLORREF Color){
 	if (led < ChromaSDK::Mousepad::MAX_LEDS){
 		this->Mousepad_Effect.Color[led] = Color;
-		return RZRESULT_SUCCESS;
+		return PyUnicode_FromString("Success");;
 	}
-	else { return FALSE; }
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error!");
+		return nullptr;
+	}
 
 }
 
 PyObject* Chroma_Implementation::setKeypadbyCord(size_t x, size_t y, COLORREF Color) {
 	if (y < ChromaSDK::Keypad::MAX_ROW && x < ChromaSDK::Keypad::MAX_COLUMN){
 		this->Keypad_Effect.Color[y][x] = Color;
-		return RZRESULT_SUCCESS;
+		return PyUnicode_FromString("Success");;
 	}
-	else { return FALSE; }
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error!");
+		return nullptr;
+	}
 
 
 }
@@ -243,9 +252,12 @@ PyObject* Chroma_Implementation::setKeypadbyCord(size_t x, size_t y, COLORREF Co
 PyObject* Chroma_Implementation::setHeadsetbyLED(size_t led, COLORREF Color) {
 	if (led < ChromaSDK::Headset::MAX_LEDS) {
 		this->Headset_Effect.Color[led] = Color;
-		return RZRESULT_SUCCESS;
+		return PyUnicode_FromString("Success");;
 	}
-	else { return FALSE; }
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error!");
+		return nullptr;
+	}
 }
 //Apply effects
 PyObject* Chroma_Implementation::applyMouseEffect(){
@@ -281,14 +293,14 @@ PyObject* Chroma_Implementation::setKeyboardbyRow(size_t Row, COLORREF Color){
 	{
 		this->Keyboard_Effect.Color[Row][i] = Color;
 	}
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 }
 PyObject* Chroma_Implementation::setKeyboardbyCol(size_t Col, COLORREF Color){
 	for (size_t i = 0; i < ChromaSDK::Keyboard::MAX_ROW; i++)
 	{
 		this->Keyboard_Effect.Color[i][Col] = Color;
 	}
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 
 }
 
@@ -297,14 +309,14 @@ PyObject* Chroma_Implementation::setMousebyRow(size_t Row, COLORREF Color){
 	{
 		this->Mouse_Effect.Color[Row][i] = Color;
 	}
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 }
 PyObject* Chroma_Implementation::setMousebyCol(size_t Col, COLORREF Color){
 	for (size_t i = 0; i < ChromaSDK::Mouse::MAX_ROW; i++)
 	{
 		this->Mouse_Effect.Color[i][Col] = Color;
 	}
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 }
 
 PyObject* Chroma_Implementation::setKeypadbyRow(size_t Row, COLORREF Color){
@@ -312,14 +324,14 @@ PyObject* Chroma_Implementation::setKeypadbyRow(size_t Row, COLORREF Color){
 	{
 		this->Keyboard_Effect.Color[Row][i] = Color;
 	}
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 }
 PyObject* Chroma_Implementation::setKeypadbyCol(size_t Col, COLORREF Color){
 	for (size_t i = 0; i < ChromaSDK::Keypad::MAX_ROW; i++)
 	{
 		this->Keyboard_Effect.Color[i][Col] = Color;
 	}
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 }
 
 PyObject* Chroma_Implementation::clearKeyboardEffect(){
@@ -329,7 +341,7 @@ PyObject* Chroma_Implementation::clearKeyboardEffect(){
 			this->Keyboard_Effect.Color[row][col] = NULL;
 		}
 	}
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 }
 
 PyObject* Chroma_Implementation::clearKeypadEffect(){
@@ -338,7 +350,7 @@ PyObject* Chroma_Implementation::clearKeypadEffect(){
 			this->Keypad_Effect.Color[row][col] = NULL;
 		}
 	}
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 }
 
 PyObject* Chroma_Implementation::clearMouseEffect(){
@@ -347,21 +359,21 @@ PyObject* Chroma_Implementation::clearMouseEffect(){
 			this->Mouse_Effect.Color[row][col] = NULL;
 		}
 	}
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 }
 
 PyObject* Chroma_Implementation::clearMousepadEffect(){
 	for (size_t led = 0; led < ChromaSDK::Mousepad::MAX_LEDS; led++){
 		this->Mousepad_Effect.Color[led] = NULL;
 	}
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 }
 
 PyObject* Chroma_Implementation::clearHeadsetEffect(){
 	for (size_t led = 0; led < ChromaSDK::Headset::MAX_LEDS; led++){
 		this->Headset_Effect.Color[led] = NULL;
 	}
-	return RZRESULT_SUCCESS;
+	return PyUnicode_FromString("Success");;
 }
 
 bool Chroma_Implementation::Colortest(PyObject *InputColor, COLORREF &color){
