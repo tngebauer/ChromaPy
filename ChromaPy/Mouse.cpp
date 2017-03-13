@@ -20,7 +20,7 @@ PyObject* set_mouse(PyObject* self, PyObject* args)
 
 
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -61,7 +61,7 @@ PyObject* set_mousebycord(PyObject* self, PyObject* args)
 	RZRESULT result = Chroma.setMousebyCord(x, y, color);
 
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -97,7 +97,7 @@ PyObject* set_mousebyrow(PyObject* self, PyObject* args)
 	RZRESULT result = Chroma.setMousebyRow(y, color);
 
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -133,7 +133,7 @@ PyObject* set_mousebycol(PyObject* self, PyObject* args)
 	RZRESULT result = Chroma.setMousebyCol(x, color);
 
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -147,7 +147,7 @@ PyObject* clear_mouse(PyObject* self, PyObject* args)
 
 	RZRESULT result = Chroma.clearMouseEffect();
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -162,7 +162,7 @@ PyObject* applyEffectMouse(PyObject* self, PyObject* args)
 
 	RZRESULT result = Chroma.applyMouseEffect();
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -195,7 +195,7 @@ PyObject*WaveEffectMouse(PyObject* self, PyObject* args) {
 	}
 	RZRESULT result = Chroma.setMouseWave(direction);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -224,15 +224,15 @@ PyObject* BreathingEffectMouse(PyObject* self, PyObject* args) {
 	}
 	else if (temp == 1)
 	{
-		mode = true;
+		mode = RZRESULT_SUCCESS;
 	}
 	else
 	{
-		PyErr_SetString(SyntaxError, "Invalid Arguments! Mode needs to be 0(false)-1(true)");
+		PyErr_SetString(SyntaxError, "Invalid Arguments! Mode needs to be 0(false)-1(RZRESULT_SUCCESS)");
 		return nullptr;
 	}
 
-	if (mode == true) {
+	if (mode == RZRESULT_SUCCESS) {
 
 		if (!Chroma.Colortest(first, FIRST))
 		{
@@ -248,7 +248,7 @@ PyObject* BreathingEffectMouse(PyObject* self, PyObject* args) {
 
 	RZRESULT result = Chroma.setMouseBreathing(mode, FIRST, SECOND);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {

@@ -20,7 +20,7 @@ PyObject* set_mousepad(PyObject* self, PyObject* args)
 
 	RZRESULT result = Chroma.setMousepad(color);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -56,7 +56,7 @@ PyObject* set_mousepadbyled(PyObject* self, PyObject* args)
 	RZRESULT result = Chroma.setMousepadbyLED(x, color);
 
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -70,7 +70,7 @@ PyObject* clear_mousepad(PyObject* self, PyObject* args)
 
 	RZRESULT result = Chroma.clearMousepadEffect();
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -85,7 +85,7 @@ PyObject* applyEffectMousepad(PyObject* self, PyObject* args)
 
 	RZRESULT result = Chroma.applyMousepadEffect();
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -120,7 +120,7 @@ PyObject*WaveEffectMousepad(PyObject* self, PyObject* args) {
 
 	RZRESULT result = Chroma.setMousepadWave(direction);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -152,7 +152,7 @@ PyObject* BreathingEffectMousepad(PyObject* self, PyObject* args) {
 	}
 	else
 	{
-		PyErr_SetString(SyntaxError, "Invalid Arguments! Mode needs to be 0(false)-1(true)");
+		PyErr_SetString(SyntaxError, "Invalid Arguments! Mode needs to be 0(false)-1(RZRESULT_SUCCESS)");
 		return nullptr;
 	}
 
@@ -174,7 +174,7 @@ PyObject* BreathingEffectMousepad(PyObject* self, PyObject* args) {
 
 	RZRESULT result = Chroma.setMousepadBreathing(mode, FIRST, SECOND);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {

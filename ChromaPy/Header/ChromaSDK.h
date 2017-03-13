@@ -43,67 +43,67 @@ private:
 	ChromaSDK::Keypad::CUSTOM_EFFECT_TYPE Keypad_Effect = {};
 	ChromaSDK::Headset::CUSTOM_EFFECT_TYPE Headset_Effect = {};
 
-	static bool IsDeviceConnected(RZDEVICEID DeviceId);
+	static RZRESULT IsDeviceConnected(RZDEVICEID DeviceId);
 
 public:
 	Chroma_Implementation();
 	~Chroma_Implementation();
-	BOOL Initialize();
+	RZRESULT Initialize();
 
 	//Static Effect
 	static void ResetEffects(UINT DeviceType);
-	BOOL set_all(COLORREF Color);
-	BOOL setKeyboard(COLORREF Color);
-	BOOL setMouse(COLORREF Color);
-	BOOL setMousepad(COLORREF Color);
-	BOOL setKeypad(COLORREF Color);
-	BOOL setHeadset(COLORREF Color);
+	RZRESULT set_all(COLORREF Color);
+	RZRESULT setKeyboard(COLORREF Color);
+	RZRESULT setMouse(COLORREF Color);
+	RZRESULT setMousepad(COLORREF Color);
+	RZRESULT setKeypad(COLORREF Color);
+	RZRESULT setHeadset(COLORREF Color);
 
-	BOOL setKeyboardbyCord(size_t x, size_t y, COLORREF Color);
-	BOOL setMousebyCord(size_t x, size_t y, COLORREF Color);
-	BOOL setMousepadbyLED(size_t led, COLORREF Color);
-	BOOL setKeypadbyCord(size_t x, size_t y, COLORREF Color);
-	BOOL setHeadsetbyLED(size_t led, COLORREF Color);
+	RZRESULT setKeyboardbyCord(size_t x, size_t y, COLORREF Color);
+	RZRESULT setMousebyCord(size_t x, size_t y, COLORREF Color);
+	RZRESULT setMousepadbyLED(size_t led, COLORREF Color);
+	RZRESULT setKeypadbyCord(size_t x, size_t y, COLORREF Color);
+	RZRESULT setHeadsetbyLED(size_t led, COLORREF Color);
 
-	BOOL setKeyboardbyRow(size_t Row, COLORREF Color);
-	BOOL setKeyboardbyCol(size_t Col, COLORREF Color);
+	RZRESULT setKeyboardbyRow(size_t Row, COLORREF Color);
+	RZRESULT setKeyboardbyCol(size_t Col, COLORREF Color);
 
-	BOOL setMousebyRow(size_t Row, COLORREF Color);
-	BOOL setMousebyCol(size_t Col, COLORREF Color);
+	RZRESULT setMousebyRow(size_t Row, COLORREF Color);
+	RZRESULT setMousebyCol(size_t Col, COLORREF Color);
 
-	BOOL setKeypadbyRow(size_t Row, COLORREF Color);
-	BOOL setKeypadbyCol(size_t Col, COLORREF Color);
+	RZRESULT setKeypadbyRow(size_t Row, COLORREF Color);
+	RZRESULT setKeypadbyCol(size_t Col, COLORREF Color);
 
 	//Reactive Effect
-	static BOOL setKeyboardReactive(size_t Duration, COLORREF Color);
-	static BOOL setKeypadReactive(size_t Duration, COLORREF Color);
+	static RZRESULT setKeyboardReactive(size_t Duration, COLORREF Color);
+	static RZRESULT setKeypadReactive(size_t Duration, COLORREF Color);
 
 	//Wave Effect
-	static BOOL setKeyboardWave(size_t direction);
-	static BOOL setKeypadWave(size_t direction);
-	static BOOL setMouseWave(size_t direction);
-	static BOOL setMousepadWave(size_t direction);
+	static RZRESULT setKeyboardWave(size_t direction);
+	static RZRESULT setKeypadWave(size_t direction);
+	static RZRESULT setMouseWave(size_t direction);
+	static RZRESULT setMousepadWave(size_t direction);
 
 	//Breathing Effect
-	static BOOL setKeyboardBreathing(bool mode, COLORREF first, COLORREF second);
-	static BOOL setKeypadBreathing(bool mode, COLORREF first, COLORREF second);
-	static BOOL setMouseBreathing(bool mode, COLORREF first, COLORREF second);
-	static BOOL setMousepadBreathing(bool mode, COLORREF first, COLORREF second);
-	static BOOL setHeadsetBreathing(COLORREF first);
+	static RZRESULT setKeyboardBreathing(RZRESULT mode, COLORREF first, COLORREF second);
+	static RZRESULT setKeypadBreathing(RZRESULT mode, COLORREF first, COLORREF second);
+	static RZRESULT setMouseBreathing(RZRESULT mode, COLORREF first, COLORREF second);
+	static RZRESULT setMousepadBreathing(RZRESULT mode, COLORREF first, COLORREF second);
+	static RZRESULT setHeadsetBreathing(COLORREF first);
 
 	//clear Grid
-	BOOL clearKeyboardEffect();
-	BOOL clearMouseEffect();
-	BOOL clearKeypadEffect();
-	BOOL clearMousepadEffect();
-	BOOL clearHeadsetEffect();
+	RZRESULT clearKeyboardEffect();
+	RZRESULT clearMouseEffect();
+	RZRESULT clearKeypadEffect();
+	RZRESULT clearMousepadEffect();
+	RZRESULT clearHeadsetEffect();
 
 	//apply Effect
-	BOOL applyMouseEffect();
-	BOOL applyMousepadEffect();
-	BOOL applyKeyboardEffect();
-	BOOL applyKeypadEffect();
-	BOOL applyHeadsetEffect();
+	RZRESULT applyMouseEffect();
+	RZRESULT applyMousepadEffect();
+	RZRESULT applyKeyboardEffect();
+	RZRESULT applyKeypadEffect();
+	RZRESULT applyHeadsetEffect();
 
 	//Constants
 	static size_t Keyboard_MaxCol();
@@ -118,7 +118,7 @@ public:
 	static size_t Keypad_MaxLED();
 	static size_t Headset_MaxLED();
 
-	static bool Colortest(PyObject *Color, COLORREF &color);
+	static RZRESULT Colortest(PyObject *Color, COLORREF &color);
 
 	static void ConnectedDevices(vector<char*> &devices);
 

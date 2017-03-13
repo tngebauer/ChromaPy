@@ -17,9 +17,14 @@ PyObject* set_headset(PyObject* self, PyObject* args){
 		return nullptr;
 	}
 
-	Chroma.setHeadset(color);
-
-	return PyUnicode_FromString("Success");
+	RZRESULT result = Chroma.setHeadset(color);
+	if (result == RZRESULT_SUCCESS) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
 }
 
 PyObject* set_headsetbyled(PyObject* self, PyObject* args){
@@ -44,7 +49,7 @@ PyObject* set_headsetbyled(PyObject* self, PyObject* args){
 	}
 
 	RZRESULT result = Chroma.setHeadsetbyLED(x, color);
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -58,7 +63,7 @@ PyObject* clear_headset(PyObject* self, PyObject* args){
 	
 	RZRESULT result = Chroma.clearHeadsetEffect();
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -71,7 +76,7 @@ PyObject* applyEffectHeadset(PyObject* self, PyObject* args){
 
 	RZRESULT result = Chroma.applyHeadsetEffect();
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -105,7 +110,7 @@ PyObject* BreathingEffectHeadset(PyObject* self, PyObject* args) {
 
 	RZRESULT result = Chroma.setHeadsetBreathing(FIRST);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {

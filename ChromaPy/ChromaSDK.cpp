@@ -29,12 +29,12 @@ QUERYDEVICE QueryDevice = nullptr;
 
 
 
-bool Chroma_Implementation::IsDeviceConnected(RZDEVICEID DeviceId)
+RZRESULT Chroma_Implementation::IsDeviceConnected(RZDEVICEID DeviceId)
 {
 	if (QueryDevice != nullptr)
 	{
 		ChromaSDK::DEVICE_INFO_TYPE DeviceInfo = {};
-		RZRESULT Result = QueryDevice(DeviceId, DeviceInfo);
+		RZRESULT  Result = QueryDevice(DeviceId, DeviceInfo);
 
 		if (DeviceInfo.Connected == 1) { return true; }
 		else { return false; }
@@ -54,7 +54,7 @@ Chroma_Implementation::~Chroma_Implementation()
 {
 }
 
-BOOL Chroma_Implementation::Initialize()
+RZRESULT Chroma_Implementation::Initialize()
 {
 	if (ChromaModule == nullptr)
 	{
@@ -67,7 +67,7 @@ BOOL Chroma_Implementation::Initialize()
 
 	if (Init == nullptr)
 	{
-		RZRESULT Result = RZRESULT_INVALID;
+		RZRESULT  Result = RZRESULT_INVALID;
 		Init = reinterpret_cast<INIT>(GetProcAddress(ChromaModule, "Init"));
 		if (Init)
 		{
@@ -155,112 +155,112 @@ void Chroma_Implementation::ConnectedDevices(vector<char*> &devices)
 
 
 //set static effect to all/specific devices
-BOOL Chroma_Implementation::set_all(COLORREF Color)
+RZRESULT Chroma_Implementation::set_all(COLORREF Color)
 {
 	this->setKeyboard(Color);
 	this->setMouse(Color);
 	this->setMousepad(Color);
-	return true;
+	return RZRESULT_SUCCESS;
 }
-BOOL Chroma_Implementation::setKeyboard(COLORREF Color){
+RZRESULT Chroma_Implementation::setKeyboard(COLORREF Color){
 	for (UINT row = 0; row < ChromaSDK::Keyboard::MAX_ROW; row++) {
 		for (UINT col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN; col++) {
 			this->Keyboard_Effect.Color[row][col] = Color;
 		}
 	}
 
-	return TRUE;
+	return RZRESULT_SUCCESS;
 }
-BOOL Chroma_Implementation::setMousepad(COLORREF Color){
+RZRESULT Chroma_Implementation::setMousepad(COLORREF Color){
 	for (UINT count = 0; count < ChromaSDK::Mousepad::MAX_LEDS; count++) {
 		this->Mousepad_Effect.Color[count] = Color;
 	}
 
-	return TRUE;
+	return RZRESULT_SUCCESS;
 }
-BOOL Chroma_Implementation::setMouse(COLORREF Color){
+RZRESULT Chroma_Implementation::setMouse(COLORREF Color){
 	for (UINT row = 0; row < ChromaSDK::Mouse::MAX_ROW; row++) {
 		for (UINT col = 0; col < ChromaSDK::Mouse::MAX_COLUMN; col++) {
 			this->Mouse_Effect.Color[row][col] = Color;
 		}
 	}
 
-	return TRUE;
+	return RZRESULT_SUCCESS;
 }
-BOOL Chroma_Implementation::setKeypad(COLORREF Color) {
+RZRESULT Chroma_Implementation::setKeypad(COLORREF Color) {
 	for (UINT row = 0; row < ChromaSDK::Keypad::MAX_ROW; row++) {
 		for (UINT col = 0; col < ChromaSDK::Keypad::MAX_COLUMN; col++) {
 			this->Keypad_Effect.Color[row][col] = Color;
 		}
 	}
 
-	return TRUE;
+	return RZRESULT_SUCCESS;
 }
-BOOL Chroma_Implementation::setHeadset(COLORREF Color) {
+RZRESULT Chroma_Implementation::setHeadset(COLORREF Color) {
 	for (UINT count = 0; count < ChromaSDK::Headset::MAX_LEDS; count++) {
 		this->Headset_Effect.Color[count] = Color;
 	}
 
-	return TRUE;
+	return RZRESULT_SUCCESS;
 }
 
 //Set Keyboard by x- and y-cords
-BOOL Chroma_Implementation::setKeyboardbyCord(size_t x, size_t y, COLORREF Color){
+RZRESULT Chroma_Implementation::setKeyboardbyCord(size_t x, size_t y, COLORREF Color){
 	if (y < ChromaSDK::Keyboard::MAX_ROW && x < ChromaSDK::Keyboard::MAX_COLUMN){
 		this->Keyboard_Effect.Color[y][x] = Color;
-		return TRUE;
+		return RZRESULT_SUCCESS;
 	}
 	else { return FALSE; }
 }
 //Set Mouse by x- and y-cords
-BOOL Chroma_Implementation::setMousebyCord(size_t x, size_t y, COLORREF Color){
+RZRESULT Chroma_Implementation::setMousebyCord(size_t x, size_t y, COLORREF Color){
 	if (y < ChromaSDK::Mouse::MAX_ROW && x < ChromaSDK::Mouse::MAX_COLUMN){
 		this->Mouse_Effect.Color[y][x] = Color;
-		return TRUE;
+		return RZRESULT_SUCCESS;
 	}
 	else{ return FALSE; }
 }
 //set Mousepad by LEDs
-BOOL Chroma_Implementation::setMousepadbyLED(size_t led, COLORREF Color){
+RZRESULT Chroma_Implementation::setMousepadbyLED(size_t led, COLORREF Color){
 	if (led < ChromaSDK::Mousepad::MAX_LEDS){
 		this->Mousepad_Effect.Color[led] = Color;
-		return TRUE;
+		return RZRESULT_SUCCESS;
 	}
 	else { return FALSE; }
 
 }
 
-BOOL Chroma_Implementation::setKeypadbyCord(size_t x, size_t y, COLORREF Color) {
+RZRESULT Chroma_Implementation::setKeypadbyCord(size_t x, size_t y, COLORREF Color) {
 	if (y < ChromaSDK::Keypad::MAX_ROW && x < ChromaSDK::Keypad::MAX_COLUMN){
 		this->Keypad_Effect.Color[y][x] = Color;
-		return TRUE;
+		return RZRESULT_SUCCESS;
 	}
 	else { return FALSE; }
 
 
 }
 
-BOOL Chroma_Implementation::setHeadsetbyLED(size_t led, COLORREF Color) {
+RZRESULT Chroma_Implementation::setHeadsetbyLED(size_t led, COLORREF Color) {
 	if (led < ChromaSDK::Headset::MAX_LEDS) {
 		this->Headset_Effect.Color[led] = Color;
-		return TRUE;
+		return RZRESULT_SUCCESS;
 	}
 	else { return FALSE; }
 }
 //Apply effects
-BOOL Chroma_Implementation::applyMouseEffect(){
+RZRESULT Chroma_Implementation::applyMouseEffect(){
 	return CreateMouseEffect(ChromaSDK::Mouse::CHROMA_CUSTOM2, &this->Mouse_Effect, nullptr);
 }
-BOOL Chroma_Implementation::applyMousepadEffect(){
+RZRESULT Chroma_Implementation::applyMousepadEffect(){
 	return CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_CUSTOM, &this->Mousepad_Effect, nullptr);
 }
-BOOL Chroma_Implementation::applyKeyboardEffect(){
+RZRESULT Chroma_Implementation::applyKeyboardEffect(){
 	return CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_CUSTOM, &this->Keyboard_Effect, nullptr);
 }
-BOOL Chroma_Implementation::applyKeypadEffect() {
+RZRESULT Chroma_Implementation::applyKeypadEffect() {
 	return CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_CUSTOM, &this->Keypad_Effect, nullptr);
 }
-BOOL Chroma_Implementation::applyHeadsetEffect() {
+RZRESULT Chroma_Implementation::applyHeadsetEffect() {
 	return CreateHeadsetEffect(ChromaSDK::Headset::CHROMA_CUSTOM, &this->Headset_Effect, nullptr);
 }
 //Constants
@@ -276,95 +276,95 @@ size_t Chroma_Implementation::Keypad_MaxRow(){ return ChromaSDK::Keypad::MAX_ROW
 size_t Chroma_Implementation::Keypad_MaxLED() { return ChromaSDK::Keypad::MAX_KEYS; }
 size_t Chroma_Implementation::Headset_MaxLED() { return ChromaSDK::Headset::MAX_LEDS; }
 
-BOOL Chroma_Implementation::setKeyboardbyRow(size_t Row, COLORREF Color){
+RZRESULT Chroma_Implementation::setKeyboardbyRow(size_t Row, COLORREF Color){
 	for (size_t i = 0; i < ChromaSDK::Keyboard::MAX_COLUMN; i++)
 	{
 		this->Keyboard_Effect.Color[Row][i] = Color;
 	}
-	return TRUE;
+	return RZRESULT_SUCCESS;
 }
-BOOL Chroma_Implementation::setKeyboardbyCol(size_t Col, COLORREF Color){
+RZRESULT Chroma_Implementation::setKeyboardbyCol(size_t Col, COLORREF Color){
 	for (size_t i = 0; i < ChromaSDK::Keyboard::MAX_ROW; i++)
 	{
 		this->Keyboard_Effect.Color[i][Col] = Color;
 	}
-	return TRUE;
+	return RZRESULT_SUCCESS;
 
 }
 
-BOOL Chroma_Implementation::setMousebyRow(size_t Row, COLORREF Color){
+RZRESULT Chroma_Implementation::setMousebyRow(size_t Row, COLORREF Color){
 	for (size_t i = 0; i < ChromaSDK::Mouse::MAX_COLUMN; i++)
 	{
 		this->Mouse_Effect.Color[Row][i] = Color;
 	}
-	return TRUE;
+	return RZRESULT_SUCCESS;
 }
-BOOL Chroma_Implementation::setMousebyCol(size_t Col, COLORREF Color){
+RZRESULT Chroma_Implementation::setMousebyCol(size_t Col, COLORREF Color){
 	for (size_t i = 0; i < ChromaSDK::Mouse::MAX_ROW; i++)
 	{
 		this->Mouse_Effect.Color[i][Col] = Color;
 	}
-	return TRUE;
+	return RZRESULT_SUCCESS;
 }
 
-BOOL Chroma_Implementation::setKeypadbyRow(size_t Row, COLORREF Color){
+RZRESULT Chroma_Implementation::setKeypadbyRow(size_t Row, COLORREF Color){
 	for (size_t i = 0; i < ChromaSDK::Keypad::MAX_COLUMN; i++)
 	{
 		this->Keyboard_Effect.Color[Row][i] = Color;
 	}
-	return TRUE;
+	return RZRESULT_SUCCESS;
 }
-BOOL Chroma_Implementation::setKeypadbyCol(size_t Col, COLORREF Color){
+RZRESULT Chroma_Implementation::setKeypadbyCol(size_t Col, COLORREF Color){
 	for (size_t i = 0; i < ChromaSDK::Keypad::MAX_ROW; i++)
 	{
 		this->Keyboard_Effect.Color[i][Col] = Color;
 	}
-	return TRUE;
+	return RZRESULT_SUCCESS;
 }
 
-BOOL Chroma_Implementation::clearKeyboardEffect(){
+RZRESULT Chroma_Implementation::clearKeyboardEffect(){
 	for (size_t row = 0; row < ChromaSDK::Keyboard::MAX_ROW; row++) {
 		for (size_t col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN; col++)
 		{
 			this->Keyboard_Effect.Color[row][col] = NULL;
 		}
 	}
-	return TRUE;
+	return RZRESULT_SUCCESS;
 }
 
-BOOL Chroma_Implementation::clearKeypadEffect(){
+RZRESULT Chroma_Implementation::clearKeypadEffect(){
 	for (size_t row = 0; row < ChromaSDK::Keypad::MAX_ROW; row++) {
 		for (size_t col = 0; col < ChromaSDK::Keypad::MAX_COLUMN; col++){
 			this->Keypad_Effect.Color[row][col] = NULL;
 		}
 	}
-	return TRUE;
+	return RZRESULT_SUCCESS;
 }
 
-BOOL Chroma_Implementation::clearMouseEffect(){
+RZRESULT Chroma_Implementation::clearMouseEffect(){
 	for (size_t row = 0; row < ChromaSDK::Mouse::MAX_ROW; row++) {
 		for (size_t col = 0; col < ChromaSDK::Mouse::MAX_COLUMN; col++){
 			this->Mouse_Effect.Color[row][col] = NULL;
 		}
 	}
-	return TRUE;
+	return RZRESULT_SUCCESS;
 }
 
-BOOL Chroma_Implementation::clearMousepadEffect(){
+RZRESULT Chroma_Implementation::clearMousepadEffect(){
 	for (size_t led = 0; led < ChromaSDK::Mousepad::MAX_LEDS; led++){
 		this->Mousepad_Effect.Color[led] = NULL;
 	}
-	return TRUE;
+	return RZRESULT_SUCCESS;
 }
 
-BOOL Chroma_Implementation::clearHeadsetEffect(){
+RZRESULT Chroma_Implementation::clearHeadsetEffect(){
 	for (size_t led = 0; led < ChromaSDK::Headset::MAX_LEDS; led++){
 		this->Headset_Effect.Color[led] = NULL;
 	}
-	return TRUE;
+	return RZRESULT_SUCCESS;
 }
 
-bool Chroma_Implementation::Colortest(PyObject *InputColor, COLORREF &color){
+RZRESULT Chroma_Implementation::Colortest(PyObject *InputColor, COLORREF &color){
 	if (PyTuple_Size(InputColor) != 3) { return false; }
 	int R, G, B;
 
@@ -382,7 +382,7 @@ bool Chroma_Implementation::Colortest(PyObject *InputColor, COLORREF &color){
 	return true;
 }
 
-BOOL Chroma_Implementation::setKeyboardReactive(size_t Duration, COLORREF Color) {
+RZRESULT Chroma_Implementation::setKeyboardReactive(size_t Duration, COLORREF Color) {
 
 	ChromaSDK::Keyboard::REACTIVE_EFFECT_TYPE Reactive_Effect = {};
 
@@ -408,7 +408,7 @@ BOOL Chroma_Implementation::setKeyboardReactive(size_t Duration, COLORREF Color)
 	
 }
 
-BOOL Chroma_Implementation::setKeypadReactive(size_t Duration, COLORREF Color) {
+RZRESULT Chroma_Implementation::setKeypadReactive(size_t Duration, COLORREF Color) {
 	ChromaSDK::Keypad::REACTIVE_EFFECT_TYPE Reactive_Effect = {};
 
 	Reactive_Effect.Color = Color;
@@ -435,7 +435,7 @@ BOOL Chroma_Implementation::setKeypadReactive(size_t Duration, COLORREF Color) {
 }
 
 
-BOOL Chroma_Implementation::setKeyboardWave(size_t direction) {
+RZRESULT Chroma_Implementation::setKeyboardWave(size_t direction) {
 
 
 	ChromaSDK::Keyboard::WAVE_EFFECT_TYPE Wave_Effect = {};
@@ -460,7 +460,7 @@ BOOL Chroma_Implementation::setKeyboardWave(size_t direction) {
 
 }
 
-BOOL Chroma_Implementation::setKeypadWave(size_t direction) {
+RZRESULT Chroma_Implementation::setKeypadWave(size_t direction) {
 
 
 	ChromaSDK::Keypad::WAVE_EFFECT_TYPE Wave_Effect = {};
@@ -484,7 +484,7 @@ BOOL Chroma_Implementation::setKeypadWave(size_t direction) {
 
 }
 
-BOOL Chroma_Implementation::setMouseWave(size_t direction) {
+RZRESULT Chroma_Implementation::setMouseWave(size_t direction) {
 
 
 	ChromaSDK::Mouse::WAVE_EFFECT_TYPE Wave_Effect = {};
@@ -504,7 +504,7 @@ BOOL Chroma_Implementation::setMouseWave(size_t direction) {
 
 }
 
-BOOL Chroma_Implementation::setMousepadWave(size_t direction) {
+RZRESULT Chroma_Implementation::setMousepadWave(size_t direction) {
 
 
 	ChromaSDK::Mousepad::WAVE_EFFECT_TYPE Wave_Effect = {};
@@ -528,7 +528,7 @@ BOOL Chroma_Implementation::setMousepadWave(size_t direction) {
 
 }
 
-BOOL Chroma_Implementation::setKeyboardBreathing(bool mode, COLORREF first, COLORREF second) {
+RZRESULT Chroma_Implementation::setKeyboardBreathing(RZRESULT mode, COLORREF first, COLORREF second) {
 	ChromaSDK::Keyboard::BREATHING_EFFECT_TYPE Breathing_Effect = {};
 
 	if (mode == 1) {
@@ -543,7 +543,7 @@ BOOL Chroma_Implementation::setKeyboardBreathing(bool mode, COLORREF first, COLO
 	return CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_BREATHING, &Breathing_Effect, nullptr);
 
 }
-BOOL Chroma_Implementation::setKeypadBreathing(bool mode, COLORREF first, COLORREF second) {
+RZRESULT Chroma_Implementation::setKeypadBreathing(RZRESULT mode, COLORREF first, COLORREF second) {
 	ChromaSDK::Keypad::BREATHING_EFFECT_TYPE Breathing_Effect = {};
 
 	if (mode == 1) {
@@ -556,7 +556,7 @@ BOOL Chroma_Implementation::setKeypadBreathing(bool mode, COLORREF first, COLORR
 	return CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_BREATHING, &Breathing_Effect, nullptr);
 
 }
-BOOL Chroma_Implementation::setMouseBreathing(bool mode, COLORREF first, COLORREF second) {
+RZRESULT Chroma_Implementation::setMouseBreathing(RZRESULT mode, COLORREF first, COLORREF second) {
 	ChromaSDK::Mouse::BREATHING_EFFECT_TYPE Breathing_Effect = {};
 
 	if (mode == 1) {
@@ -570,7 +570,7 @@ BOOL Chroma_Implementation::setMouseBreathing(bool mode, COLORREF first, COLORRE
 	return CreateMouseEffect(ChromaSDK::Mouse::CHROMA_BREATHING, &Breathing_Effect, nullptr);
 
 }
-BOOL Chroma_Implementation::setMousepadBreathing(bool mode, COLORREF first, COLORREF second) {
+RZRESULT Chroma_Implementation::setMousepadBreathing(RZRESULT mode, COLORREF first, COLORREF second) {
 	ChromaSDK::Mousepad::BREATHING_EFFECT_TYPE Breathing_Effect = {};
 
 	if (mode == 1) {
@@ -583,7 +583,7 @@ BOOL Chroma_Implementation::setMousepadBreathing(bool mode, COLORREF first, COLO
 	return CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_BREATHING, &Breathing_Effect, nullptr);
 
 }
-BOOL Chroma_Implementation::setHeadsetBreathing(COLORREF first) {
+RZRESULT Chroma_Implementation::setHeadsetBreathing(COLORREF first) {
 	ChromaSDK::Headset::BREATHING_EFFECT_TYPE Breathing_Effect = {};
 
 	Breathing_Effect.Color = first;

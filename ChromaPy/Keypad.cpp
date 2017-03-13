@@ -18,7 +18,7 @@ PyObject* set_keypad(PyObject* self, PyObject* args)
 	}
 	RZRESULT result = Chroma.setKeypad(color);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -56,7 +56,7 @@ PyObject* set_keypadbycord(PyObject* self, PyObject* args)
 
 	RZRESULT result = Chroma.setKeypadbyCord(x, y, color);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -89,7 +89,7 @@ PyObject* set_keypadbyrow(PyObject* self, PyObject* args)
 
 	RZRESULT result = Chroma.setKeypadbyRow(y, color);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -124,7 +124,7 @@ PyObject* set_keypadbycol(PyObject* self, PyObject* args)
 
 	RZRESULT result = Chroma.setKeypadbyCol(x, color);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -137,7 +137,7 @@ PyObject* clear_keypad(PyObject* self, PyObject* args)
 {
 	RZRESULT result = Chroma.clearKeypadEffect();
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -150,7 +150,7 @@ PyObject* applyEffectKeypad(PyObject* self, PyObject* args)
 {
 	RZRESULT result = Chroma.applyKeypadEffect();
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -187,7 +187,7 @@ PyObject*ReactiveEffectKeypad(PyObject* self, PyObject* args) {
 	}
 	RZRESULT result = Chroma.setKeypadReactive(duration, color);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -211,7 +211,7 @@ PyObject*WaveEffectKeypad(PyObject* self, PyObject* args) {
 	}
 	RZRESULT result = Chroma.setKeypadWave(direction);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -235,14 +235,14 @@ PyObject* BreathingEffectKeypad(PyObject* self, PyObject* args) {
 	COLORREF SECOND = NULL;
 
 	if (temp == 0){ mode = false; }
-	else if (temp == 1) { mode = true; }
+	else if (temp == 1) { mode = RZRESULT_SUCCESS; }
 	else
 	{
-		PyErr_SetString(SyntaxError, "Invalid Arguments! Mode needs to be 0(false)-1(true)");
+		PyErr_SetString(SyntaxError, "Invalid Arguments! Mode needs to be 0(false)-1(RZRESULT_SUCCESS)");
 		return nullptr;
 	}
 
-	if (mode == true) {
+	if (mode == RZRESULT_SUCCESS) {
 
 		if (!Chroma.Colortest(first, FIRST))
 		{
@@ -262,7 +262,7 @@ PyObject* BreathingEffectKeypad(PyObject* self, PyObject* args) {
 	RZRESULT result = Chroma.setKeypadBreathing(mode, FIRST, SECOND);
 
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {

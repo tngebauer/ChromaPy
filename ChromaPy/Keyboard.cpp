@@ -18,7 +18,7 @@ PyObject* set_keyboard(PyObject* self, PyObject* args)
 	}
 	RZRESULT result = Chroma.setKeyboard(color);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -57,7 +57,7 @@ PyObject* set_keyboardbycord(PyObject* self, PyObject* args)
 
 	RZRESULT result = Chroma.setKeyboardbyCord(x, y, color);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -91,7 +91,7 @@ PyObject* set_keyboardbyrow(PyObject* self, PyObject* args)
 
 	RZRESULT result = Chroma.setKeyboardbyRow(y, color);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -125,8 +125,8 @@ PyObject* set_keyboardbycol(PyObject* self, PyObject* args)
 	}
 
 	RZRESULT result = Chroma.setKeyboardbyCol(x, color);
-
-	if (result == TRUE) {
+	
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -139,7 +139,7 @@ PyObject* clear_keyboard(PyObject* self, PyObject* args)
 {
 	RZRESULT result = Chroma.clearKeyboardEffect();
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -152,7 +152,7 @@ PyObject* applyEffectKeyboard(PyObject* self, PyObject* args)
 {
 	RZRESULT result = Chroma.applyKeyboardEffect();
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -194,7 +194,7 @@ PyObject* ReactiveEffectKeyboard(PyObject* self, PyObject* args) {
 	
 	RZRESULT result = Chroma.setKeyboardReactive(duration, color);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -219,7 +219,7 @@ PyObject* WaveEffectKeyboard(PyObject* self, PyObject* args) {
 	}
 	RZRESULT result = Chroma.setKeyboardWave(direction);
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
@@ -247,12 +247,12 @@ PyObject* BreathingEffectKeyboard(PyObject* self, PyObject* args) {
 	else if (temp == 1) { mode = true; }
 	else
 	{
-		PyErr_SetString(SyntaxError, "Invalid Arguments! mode needs to be 0(false)-1(true)");
+		PyErr_SetString(SyntaxError, "Invalid Arguments! mode needs to be 0(false)-1(RZRESULT_SUCCESS)");
 		return nullptr;
 	}
 
 
-	if (mode == true) {
+	if (mode == RZRESULT_SUCCESS) {
 
 		if (!Chroma.Colortest(first, FIRST))
 		{
@@ -271,7 +271,7 @@ PyObject* BreathingEffectKeyboard(PyObject* self, PyObject* args) {
 	RZRESULT result = Chroma.setKeyboardBreathing(mode, FIRST, SECOND);
 
 
-	if (result == TRUE) {
+	if (result == RZRESULT_SUCCESS) {
 		return PyUnicode_FromString("Success");
 	}
 	else {
