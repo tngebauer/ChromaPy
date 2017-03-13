@@ -210,7 +210,10 @@ PyObject* Chroma_Implementation::setKeyboardbyCord(size_t x, size_t y, COLORREF 
 		this->Keyboard_Effect.Color[y][x] = Color;
 		return PyUnicode_FromString("Success");;
 	}
-	else { return FALSE; }
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error!");
+		return nullptr;
+	}
 }
 //Set Mouse by x- and y-cords
 PyObject* Chroma_Implementation::setMousebyCord(size_t x, size_t y, COLORREF Color){
