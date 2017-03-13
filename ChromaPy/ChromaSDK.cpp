@@ -155,14 +155,14 @@ void Chroma_Implementation::ConnectedDevices(vector<char*> &devices)
 
 
 //set static effect to all/specific devices
-RZRESULT Chroma_Implementation::set_all(COLORREF Color)
+PyObject* Chroma_Implementation::set_all(COLORREF Color)
 {
 	this->setKeyboard(Color);
 	this->setMouse(Color);
 	this->setMousepad(Color);
 	return RZRESULT_SUCCESS;
 }
-RZRESULT Chroma_Implementation::setKeyboard(COLORREF Color){
+PyObject* Chroma_Implementation::setKeyboard(COLORREF Color){
 	for (UINT row = 0; row < ChromaSDK::Keyboard::MAX_ROW; row++) {
 		for (UINT col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN; col++) {
 			this->Keyboard_Effect.Color[row][col] = Color;
@@ -171,14 +171,14 @@ RZRESULT Chroma_Implementation::setKeyboard(COLORREF Color){
 
 	return RZRESULT_SUCCESS;
 }
-RZRESULT Chroma_Implementation::setMousepad(COLORREF Color){
+PyObject* Chroma_Implementation::setMousepad(COLORREF Color){
 	for (UINT count = 0; count < ChromaSDK::Mousepad::MAX_LEDS; count++) {
 		this->Mousepad_Effect.Color[count] = Color;
 	}
 
 	return RZRESULT_SUCCESS;
 }
-RZRESULT Chroma_Implementation::setMouse(COLORREF Color){
+PyObject* Chroma_Implementation::setMouse(COLORREF Color){
 	for (UINT row = 0; row < ChromaSDK::Mouse::MAX_ROW; row++) {
 		for (UINT col = 0; col < ChromaSDK::Mouse::MAX_COLUMN; col++) {
 			this->Mouse_Effect.Color[row][col] = Color;
@@ -187,7 +187,7 @@ RZRESULT Chroma_Implementation::setMouse(COLORREF Color){
 
 	return RZRESULT_SUCCESS;
 }
-RZRESULT Chroma_Implementation::setKeypad(COLORREF Color) {
+PyObject* Chroma_Implementation::setKeypad(COLORREF Color) {
 	for (UINT row = 0; row < ChromaSDK::Keypad::MAX_ROW; row++) {
 		for (UINT col = 0; col < ChromaSDK::Keypad::MAX_COLUMN; col++) {
 			this->Keypad_Effect.Color[row][col] = Color;
@@ -196,7 +196,7 @@ RZRESULT Chroma_Implementation::setKeypad(COLORREF Color) {
 
 	return RZRESULT_SUCCESS;
 }
-RZRESULT Chroma_Implementation::setHeadset(COLORREF Color) {
+PyObject* Chroma_Implementation::setHeadset(COLORREF Color) {
 	for (UINT count = 0; count < ChromaSDK::Headset::MAX_LEDS; count++) {
 		this->Headset_Effect.Color[count] = Color;
 	}
@@ -205,7 +205,7 @@ RZRESULT Chroma_Implementation::setHeadset(COLORREF Color) {
 }
 
 //Set Keyboard by x- and y-cords
-RZRESULT Chroma_Implementation::setKeyboardbyCord(size_t x, size_t y, COLORREF Color){
+PyObject* Chroma_Implementation::setKeyboardbyCord(size_t x, size_t y, COLORREF Color){
 	if (y < ChromaSDK::Keyboard::MAX_ROW && x < ChromaSDK::Keyboard::MAX_COLUMN){
 		this->Keyboard_Effect.Color[y][x] = Color;
 		return RZRESULT_SUCCESS;
@@ -213,7 +213,7 @@ RZRESULT Chroma_Implementation::setKeyboardbyCord(size_t x, size_t y, COLORREF C
 	else { return FALSE; }
 }
 //Set Mouse by x- and y-cords
-RZRESULT Chroma_Implementation::setMousebyCord(size_t x, size_t y, COLORREF Color){
+PyObject* Chroma_Implementation::setMousebyCord(size_t x, size_t y, COLORREF Color){
 	if (y < ChromaSDK::Mouse::MAX_ROW && x < ChromaSDK::Mouse::MAX_COLUMN){
 		this->Mouse_Effect.Color[y][x] = Color;
 		return RZRESULT_SUCCESS;
@@ -221,7 +221,7 @@ RZRESULT Chroma_Implementation::setMousebyCord(size_t x, size_t y, COLORREF Colo
 	else{ return FALSE; }
 }
 //set Mousepad by LEDs
-RZRESULT Chroma_Implementation::setMousepadbyLED(size_t led, COLORREF Color){
+PyObject* Chroma_Implementation::setMousepadbyLED(size_t led, COLORREF Color){
 	if (led < ChromaSDK::Mousepad::MAX_LEDS){
 		this->Mousepad_Effect.Color[led] = Color;
 		return RZRESULT_SUCCESS;
@@ -230,7 +230,7 @@ RZRESULT Chroma_Implementation::setMousepadbyLED(size_t led, COLORREF Color){
 
 }
 
-RZRESULT Chroma_Implementation::setKeypadbyCord(size_t x, size_t y, COLORREF Color) {
+PyObject* Chroma_Implementation::setKeypadbyCord(size_t x, size_t y, COLORREF Color) {
 	if (y < ChromaSDK::Keypad::MAX_ROW && x < ChromaSDK::Keypad::MAX_COLUMN){
 		this->Keypad_Effect.Color[y][x] = Color;
 		return RZRESULT_SUCCESS;
@@ -240,7 +240,7 @@ RZRESULT Chroma_Implementation::setKeypadbyCord(size_t x, size_t y, COLORREF Col
 
 }
 
-RZRESULT Chroma_Implementation::setHeadsetbyLED(size_t led, COLORREF Color) {
+PyObject* Chroma_Implementation::setHeadsetbyLED(size_t led, COLORREF Color) {
 	if (led < ChromaSDK::Headset::MAX_LEDS) {
 		this->Headset_Effect.Color[led] = Color;
 		return RZRESULT_SUCCESS;
@@ -248,20 +248,20 @@ RZRESULT Chroma_Implementation::setHeadsetbyLED(size_t led, COLORREF Color) {
 	else { return FALSE; }
 }
 //Apply effects
-RZRESULT Chroma_Implementation::applyMouseEffect(){
-	return CreateMouseEffect(ChromaSDK::Mouse::CHROMA_CUSTOM2, &this->Mouse_Effect, nullptr);
+PyObject* Chroma_Implementation::applyMouseEffect(){
+	return CheckError(CreateMouseEffect(ChromaSDK::Mouse::CHROMA_CUSTOM2, &this->Mouse_Effect, nullptr));
 }
-RZRESULT Chroma_Implementation::applyMousepadEffect(){
-	return CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_CUSTOM, &this->Mousepad_Effect, nullptr);
+PyObject* Chroma_Implementation::applyMousepadEffect(){
+	return CheckError(CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_CUSTOM, &this->Mousepad_Effect, nullptr));
 }
-RZRESULT Chroma_Implementation::applyKeyboardEffect(){
-	return CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_CUSTOM, &this->Keyboard_Effect, nullptr);
+PyObject* Chroma_Implementation::applyKeyboardEffect(){
+	return CheckError(CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_CUSTOM, &this->Keyboard_Effect, nullptr));
 }
-RZRESULT Chroma_Implementation::applyKeypadEffect() {
-	return CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_CUSTOM, &this->Keypad_Effect, nullptr);
+PyObject* Chroma_Implementation::applyKeypadEffect() {
+	return CheckError(CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_CUSTOM, &this->Keypad_Effect, nullptr));
 }
-RZRESULT Chroma_Implementation::applyHeadsetEffect() {
-	return CreateHeadsetEffect(ChromaSDK::Headset::CHROMA_CUSTOM, &this->Headset_Effect, nullptr);
+PyObject* Chroma_Implementation::applyHeadsetEffect() {
+	return CheckError(CreateHeadsetEffect(ChromaSDK::Headset::CHROMA_CUSTOM, &this->Headset_Effect, nullptr));
 }
 //Constants
 size_t  Chroma_Implementation::Keyboard_MaxCol() { return ChromaSDK::Keyboard::MAX_COLUMN; }
@@ -276,14 +276,14 @@ size_t Chroma_Implementation::Keypad_MaxRow(){ return ChromaSDK::Keypad::MAX_ROW
 size_t Chroma_Implementation::Keypad_MaxLED() { return ChromaSDK::Keypad::MAX_KEYS; }
 size_t Chroma_Implementation::Headset_MaxLED() { return ChromaSDK::Headset::MAX_LEDS; }
 
-RZRESULT Chroma_Implementation::setKeyboardbyRow(size_t Row, COLORREF Color){
+PyObject* Chroma_Implementation::setKeyboardbyRow(size_t Row, COLORREF Color){
 	for (size_t i = 0; i < ChromaSDK::Keyboard::MAX_COLUMN; i++)
 	{
 		this->Keyboard_Effect.Color[Row][i] = Color;
 	}
 	return RZRESULT_SUCCESS;
 }
-RZRESULT Chroma_Implementation::setKeyboardbyCol(size_t Col, COLORREF Color){
+PyObject* Chroma_Implementation::setKeyboardbyCol(size_t Col, COLORREF Color){
 	for (size_t i = 0; i < ChromaSDK::Keyboard::MAX_ROW; i++)
 	{
 		this->Keyboard_Effect.Color[i][Col] = Color;
@@ -292,14 +292,14 @@ RZRESULT Chroma_Implementation::setKeyboardbyCol(size_t Col, COLORREF Color){
 
 }
 
-RZRESULT Chroma_Implementation::setMousebyRow(size_t Row, COLORREF Color){
+PyObject* Chroma_Implementation::setMousebyRow(size_t Row, COLORREF Color){
 	for (size_t i = 0; i < ChromaSDK::Mouse::MAX_COLUMN; i++)
 	{
 		this->Mouse_Effect.Color[Row][i] = Color;
 	}
 	return RZRESULT_SUCCESS;
 }
-RZRESULT Chroma_Implementation::setMousebyCol(size_t Col, COLORREF Color){
+PyObject* Chroma_Implementation::setMousebyCol(size_t Col, COLORREF Color){
 	for (size_t i = 0; i < ChromaSDK::Mouse::MAX_ROW; i++)
 	{
 		this->Mouse_Effect.Color[i][Col] = Color;
@@ -307,14 +307,14 @@ RZRESULT Chroma_Implementation::setMousebyCol(size_t Col, COLORREF Color){
 	return RZRESULT_SUCCESS;
 }
 
-RZRESULT Chroma_Implementation::setKeypadbyRow(size_t Row, COLORREF Color){
+PyObject* Chroma_Implementation::setKeypadbyRow(size_t Row, COLORREF Color){
 	for (size_t i = 0; i < ChromaSDK::Keypad::MAX_COLUMN; i++)
 	{
 		this->Keyboard_Effect.Color[Row][i] = Color;
 	}
 	return RZRESULT_SUCCESS;
 }
-RZRESULT Chroma_Implementation::setKeypadbyCol(size_t Col, COLORREF Color){
+PyObject* Chroma_Implementation::setKeypadbyCol(size_t Col, COLORREF Color){
 	for (size_t i = 0; i < ChromaSDK::Keypad::MAX_ROW; i++)
 	{
 		this->Keyboard_Effect.Color[i][Col] = Color;
@@ -322,7 +322,7 @@ RZRESULT Chroma_Implementation::setKeypadbyCol(size_t Col, COLORREF Color){
 	return RZRESULT_SUCCESS;
 }
 
-RZRESULT Chroma_Implementation::clearKeyboardEffect(){
+PyObject* Chroma_Implementation::clearKeyboardEffect(){
 	for (size_t row = 0; row < ChromaSDK::Keyboard::MAX_ROW; row++) {
 		for (size_t col = 0; col < ChromaSDK::Keyboard::MAX_COLUMN; col++)
 		{
@@ -332,7 +332,7 @@ RZRESULT Chroma_Implementation::clearKeyboardEffect(){
 	return RZRESULT_SUCCESS;
 }
 
-RZRESULT Chroma_Implementation::clearKeypadEffect(){
+PyObject* Chroma_Implementation::clearKeypadEffect(){
 	for (size_t row = 0; row < ChromaSDK::Keypad::MAX_ROW; row++) {
 		for (size_t col = 0; col < ChromaSDK::Keypad::MAX_COLUMN; col++){
 			this->Keypad_Effect.Color[row][col] = NULL;
@@ -341,7 +341,7 @@ RZRESULT Chroma_Implementation::clearKeypadEffect(){
 	return RZRESULT_SUCCESS;
 }
 
-RZRESULT Chroma_Implementation::clearMouseEffect(){
+PyObject* Chroma_Implementation::clearMouseEffect(){
 	for (size_t row = 0; row < ChromaSDK::Mouse::MAX_ROW; row++) {
 		for (size_t col = 0; col < ChromaSDK::Mouse::MAX_COLUMN; col++){
 			this->Mouse_Effect.Color[row][col] = NULL;
@@ -350,21 +350,21 @@ RZRESULT Chroma_Implementation::clearMouseEffect(){
 	return RZRESULT_SUCCESS;
 }
 
-RZRESULT Chroma_Implementation::clearMousepadEffect(){
+PyObject* Chroma_Implementation::clearMousepadEffect(){
 	for (size_t led = 0; led < ChromaSDK::Mousepad::MAX_LEDS; led++){
 		this->Mousepad_Effect.Color[led] = NULL;
 	}
 	return RZRESULT_SUCCESS;
 }
 
-RZRESULT Chroma_Implementation::clearHeadsetEffect(){
+PyObject* Chroma_Implementation::clearHeadsetEffect(){
 	for (size_t led = 0; led < ChromaSDK::Headset::MAX_LEDS; led++){
 		this->Headset_Effect.Color[led] = NULL;
 	}
 	return RZRESULT_SUCCESS;
 }
 
-RZRESULT Chroma_Implementation::Colortest(PyObject *InputColor, COLORREF &color){
+bool Chroma_Implementation::Colortest(PyObject *InputColor, COLORREF &color){
 	if (PyTuple_Size(InputColor) != 3) { return false; }
 	int R, G, B;
 
@@ -382,7 +382,7 @@ RZRESULT Chroma_Implementation::Colortest(PyObject *InputColor, COLORREF &color)
 	return true;
 }
 
-RZRESULT Chroma_Implementation::setKeyboardReactive(size_t Duration, COLORREF Color) {
+PyObject* Chroma_Implementation::setKeyboardReactive(size_t Duration, COLORREF Color) {
 
 	ChromaSDK::Keyboard::REACTIVE_EFFECT_TYPE Reactive_Effect = {};
 
@@ -404,11 +404,11 @@ RZRESULT Chroma_Implementation::setKeyboardReactive(size_t Duration, COLORREF Co
 		Reactive_Effect.Duration = Reactive_Effect.DURATION_INVALID;
 		break;
 	}
-	return CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_REACTIVE, &Reactive_Effect, nullptr);
+	return CheckError(CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_REACTIVE, &Reactive_Effect, nullptr));
 	
 }
 
-RZRESULT Chroma_Implementation::setKeypadReactive(size_t Duration, COLORREF Color) {
+PyObject* Chroma_Implementation::setKeypadReactive(size_t Duration, COLORREF Color) {
 	ChromaSDK::Keypad::REACTIVE_EFFECT_TYPE Reactive_Effect = {};
 
 	Reactive_Effect.Color = Color;
@@ -430,12 +430,12 @@ RZRESULT Chroma_Implementation::setKeypadReactive(size_t Duration, COLORREF Colo
 		break;
 	}
 
-	return CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_REACTIVE, &Reactive_Effect, nullptr);
+	return CheckError(CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_REACTIVE, &Reactive_Effect, nullptr));
 
 }
 
 
-RZRESULT Chroma_Implementation::setKeyboardWave(size_t direction) {
+PyObject* Chroma_Implementation::setKeyboardWave(size_t direction) {
 
 
 	ChromaSDK::Keyboard::WAVE_EFFECT_TYPE Wave_Effect = {};
@@ -455,12 +455,12 @@ RZRESULT Chroma_Implementation::setKeyboardWave(size_t direction) {
 		break;
 	}
 
-	return CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_WAVE, &Wave_Effect, nullptr);
+	return CheckError(CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_WAVE, &Wave_Effect, nullptr));
 
 
 }
 
-RZRESULT Chroma_Implementation::setKeypadWave(size_t direction) {
+PyObject* Chroma_Implementation::setKeypadWave(size_t direction) {
 
 
 	ChromaSDK::Keypad::WAVE_EFFECT_TYPE Wave_Effect = {};
@@ -480,11 +480,11 @@ RZRESULT Chroma_Implementation::setKeypadWave(size_t direction) {
 		break;
 	}
 
-	return CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_WAVE, &Wave_Effect, nullptr);
+	return CheckError(CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_WAVE, &Wave_Effect, nullptr));
 
 }
 
-RZRESULT Chroma_Implementation::setMouseWave(size_t direction) {
+PyObject* Chroma_Implementation::setMouseWave(size_t direction) {
 
 
 	ChromaSDK::Mouse::WAVE_EFFECT_TYPE Wave_Effect = {};
@@ -500,11 +500,11 @@ RZRESULT Chroma_Implementation::setMouseWave(size_t direction) {
 		return FALSE;
 	}
 
-	return CreateMouseEffect(ChromaSDK::Mouse::CHROMA_WAVE, &Wave_Effect, nullptr);
+	return CheckError(CreateMouseEffect(ChromaSDK::Mouse::CHROMA_WAVE, &Wave_Effect, nullptr));
 
 }
 
-RZRESULT Chroma_Implementation::setMousepadWave(size_t direction) {
+PyObject* Chroma_Implementation::setMousepadWave(size_t direction) {
 
 
 	ChromaSDK::Mousepad::WAVE_EFFECT_TYPE Wave_Effect = {};
@@ -524,11 +524,11 @@ RZRESULT Chroma_Implementation::setMousepadWave(size_t direction) {
 		break;
 	}
 
-	return CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_WAVE, &Wave_Effect, nullptr);
+	return CheckError(CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_WAVE, &Wave_Effect, nullptr));
 
 }
 
-RZRESULT Chroma_Implementation::setKeyboardBreathing(RZRESULT mode, COLORREF first, COLORREF second) {
+PyObject* Chroma_Implementation::setKeyboardBreathing(bool mode, COLORREF first, COLORREF second) {
 	ChromaSDK::Keyboard::BREATHING_EFFECT_TYPE Breathing_Effect = {};
 
 	if (mode == 1) {
@@ -540,10 +540,10 @@ RZRESULT Chroma_Implementation::setKeyboardBreathing(RZRESULT mode, COLORREF fir
 		Breathing_Effect.Type = Breathing_Effect.RANDOM_COLORS;
 	}
 
-	return CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_BREATHING, &Breathing_Effect, nullptr);
+	return CheckError(CreateKeyboardEffect(ChromaSDK::Keyboard::CHROMA_BREATHING, &Breathing_Effect, nullptr));
 
 }
-RZRESULT Chroma_Implementation::setKeypadBreathing(RZRESULT mode, COLORREF first, COLORREF second) {
+PyObject* Chroma_Implementation::setKeypadBreathing(bool mode, COLORREF first, COLORREF second) {
 	ChromaSDK::Keypad::BREATHING_EFFECT_TYPE Breathing_Effect = {};
 
 	if (mode == 1) {
@@ -553,10 +553,10 @@ RZRESULT Chroma_Implementation::setKeypadBreathing(RZRESULT mode, COLORREF first
 	}
 	if (mode == 0) { Breathing_Effect.Type = Breathing_Effect.RANDOM_COLORS; }
 
-	return CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_BREATHING, &Breathing_Effect, nullptr);
+	return CheckError(CreateKeypadEffect(ChromaSDK::Keypad::CHROMA_BREATHING, &Breathing_Effect, nullptr));
 
 }
-RZRESULT Chroma_Implementation::setMouseBreathing(RZRESULT mode, COLORREF first, COLORREF second) {
+PyObject* Chroma_Implementation::setMouseBreathing(bool mode, COLORREF first, COLORREF second) {
 	ChromaSDK::Mouse::BREATHING_EFFECT_TYPE Breathing_Effect = {};
 
 	if (mode == 1) {
@@ -567,10 +567,10 @@ RZRESULT Chroma_Implementation::setMouseBreathing(RZRESULT mode, COLORREF first,
 
 	if (mode == 0) { Breathing_Effect.Type = Breathing_Effect.RANDOM_COLORS; }
 
-	return CreateMouseEffect(ChromaSDK::Mouse::CHROMA_BREATHING, &Breathing_Effect, nullptr);
+	return CheckError(CreateMouseEffect(ChromaSDK::Mouse::CHROMA_BREATHING, &Breathing_Effect, nullptr));
 
 }
-RZRESULT Chroma_Implementation::setMousepadBreathing(RZRESULT mode, COLORREF first, COLORREF second) {
+PyObject* Chroma_Implementation::setMousepadBreathing(bool mode, COLORREF first, COLORREF second) {
 	ChromaSDK::Mousepad::BREATHING_EFFECT_TYPE Breathing_Effect = {};
 
 	if (mode == 1) {
@@ -580,14 +580,23 @@ RZRESULT Chroma_Implementation::setMousepadBreathing(RZRESULT mode, COLORREF fir
 	}
 	if (mode == 0) { Breathing_Effect.Type = Breathing_Effect.RANDOM_COLORS; }
 
-	return CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_BREATHING, &Breathing_Effect, nullptr);
+	return CheckError(CreateMousepadEffect(ChromaSDK::Mousepad::CHROMA_BREATHING, &Breathing_Effect, nullptr));
 
 }
-RZRESULT Chroma_Implementation::setHeadsetBreathing(COLORREF first) {
+PyObject* Chroma_Implementation::setHeadsetBreathing(COLORREF first) {
 	ChromaSDK::Headset::BREATHING_EFFECT_TYPE Breathing_Effect = {};
 
 	Breathing_Effect.Color = first;
 
-	return CreateHeadsetEffect(ChromaSDK::Headset::CHROMA_BREATHING, &Breathing_Effect, nullptr);
+	return CheckError(CreateHeadsetEffect(ChromaSDK::Headset::CHROMA_BREATHING, &Breathing_Effect, nullptr));
 }
 
+PyObject* Chroma_Implementation::CheckError(RZRESULT result) {
+	if (result == RZRESULT_SUCCESS) {
+		return PyUnicode_FromString("Success");
+	}
+	else {
+		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
+		return nullptr;
+	}
+}

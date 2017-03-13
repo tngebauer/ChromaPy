@@ -31,6 +31,7 @@ const COLORREF GREY = RGB(125, 125, 125);
 #define MOUSE_DEVICES       3
 #define HEADSET_DEVICES     4
 #define KEYPAD_DEVICES      5
+extern PyObject *SyntaxError;
 
 class Chroma_Implementation
 {
@@ -52,58 +53,58 @@ public:
 
 	//Static Effect
 	static void ResetEffects(UINT DeviceType);
-	RZRESULT set_all(COLORREF Color);
-	RZRESULT setKeyboard(COLORREF Color);
-	RZRESULT setMouse(COLORREF Color);
-	RZRESULT setMousepad(COLORREF Color);
-	RZRESULT setKeypad(COLORREF Color);
-	RZRESULT setHeadset(COLORREF Color);
+	PyObject* set_all(COLORREF Color);
+	PyObject* setKeyboard(COLORREF Color);
+	PyObject* setMouse(COLORREF Color);
+	PyObject* setMousepad(COLORREF Color);
+	PyObject* setKeypad(COLORREF Color);
+	PyObject* setHeadset(COLORREF Color);
 
-	RZRESULT setKeyboardbyCord(size_t x, size_t y, COLORREF Color);
-	RZRESULT setMousebyCord(size_t x, size_t y, COLORREF Color);
-	RZRESULT setMousepadbyLED(size_t led, COLORREF Color);
-	RZRESULT setKeypadbyCord(size_t x, size_t y, COLORREF Color);
-	RZRESULT setHeadsetbyLED(size_t led, COLORREF Color);
+	PyObject* setKeyboardbyCord(size_t x, size_t y, COLORREF Color);
+	PyObject* setMousebyCord(size_t x, size_t y, COLORREF Color);
+	PyObject* setMousepadbyLED(size_t led, COLORREF Color);
+	PyObject* setKeypadbyCord(size_t x, size_t y, COLORREF Color);
+	PyObject* setHeadsetbyLED(size_t led, COLORREF Color);
 
-	RZRESULT setKeyboardbyRow(size_t Row, COLORREF Color);
-	RZRESULT setKeyboardbyCol(size_t Col, COLORREF Color);
+	PyObject* setKeyboardbyRow(size_t Row, COLORREF Color);
+	PyObject* setKeyboardbyCol(size_t Col, COLORREF Color);
 
-	RZRESULT setMousebyRow(size_t Row, COLORREF Color);
-	RZRESULT setMousebyCol(size_t Col, COLORREF Color);
+	PyObject* setMousebyRow(size_t Row, COLORREF Color);
+	PyObject* setMousebyCol(size_t Col, COLORREF Color);
 
-	RZRESULT setKeypadbyRow(size_t Row, COLORREF Color);
-	RZRESULT setKeypadbyCol(size_t Col, COLORREF Color);
+	PyObject* setKeypadbyRow(size_t Row, COLORREF Color);
+	PyObject* setKeypadbyCol(size_t Col, COLORREF Color);
 
 	//Reactive Effect
-	static RZRESULT setKeyboardReactive(size_t Duration, COLORREF Color);
-	static RZRESULT setKeypadReactive(size_t Duration, COLORREF Color);
+	static PyObject* setKeyboardReactive(size_t Duration, COLORREF Color);
+	static PyObject* setKeypadReactive(size_t Duration, COLORREF Color);
 
 	//Wave Effect
-	static RZRESULT setKeyboardWave(size_t direction);
-	static RZRESULT setKeypadWave(size_t direction);
-	static RZRESULT setMouseWave(size_t direction);
-	static RZRESULT setMousepadWave(size_t direction);
+	static PyObject* setKeyboardWave(size_t direction);
+	static PyObject* setKeypadWave(size_t direction);
+	static PyObject* setMouseWave(size_t direction);
+	static PyObject* setMousepadWave(size_t direction);
 
 	//Breathing Effect
-	static RZRESULT setKeyboardBreathing(RZRESULT mode, COLORREF first, COLORREF second);
-	static RZRESULT setKeypadBreathing(RZRESULT mode, COLORREF first, COLORREF second);
-	static RZRESULT setMouseBreathing(RZRESULT mode, COLORREF first, COLORREF second);
-	static RZRESULT setMousepadBreathing(RZRESULT mode, COLORREF first, COLORREF second);
-	static RZRESULT setHeadsetBreathing(COLORREF first);
+	static PyObject* setKeyboardBreathing(bool mode, COLORREF first, COLORREF second);
+	static PyObject* setKeypadBreathing(bool mode, COLORREF first, COLORREF second);
+	static PyObject* setMouseBreathing(bool mode, COLORREF first, COLORREF second);
+	static PyObject* setMousepadBreathing(bool mode, COLORREF first, COLORREF second);
+	static PyObject* setHeadsetBreathing(COLORREF first);
 
 	//clear Grid
-	RZRESULT clearKeyboardEffect();
-	RZRESULT clearMouseEffect();
-	RZRESULT clearKeypadEffect();
-	RZRESULT clearMousepadEffect();
-	RZRESULT clearHeadsetEffect();
+	PyObject* clearKeyboardEffect();
+	PyObject* clearMouseEffect();
+	PyObject* clearKeypadEffect();
+	PyObject* clearMousepadEffect();
+	PyObject* clearHeadsetEffect();
 
 	//apply Effect
-	RZRESULT applyMouseEffect();
-	RZRESULT applyMousepadEffect();
-	RZRESULT applyKeyboardEffect();
-	RZRESULT applyKeypadEffect();
-	RZRESULT applyHeadsetEffect();
+	PyObject* applyMouseEffect();
+	PyObject* applyMousepadEffect();
+	PyObject* applyKeyboardEffect();
+	PyObject* applyKeypadEffect();
+	PyObject* applyHeadsetEffect();
 
 	//Constants
 	static size_t Keyboard_MaxCol();
@@ -118,12 +119,16 @@ public:
 	static size_t Keypad_MaxLED();
 	static size_t Headset_MaxLED();
 
-	static RZRESULT Colortest(PyObject *Color, COLORREF &color);
-
+	static bool Colortest(PyObject *Color, COLORREF &color);
+	static PyObject* CheckError(RZRESULT result);
 	static void ConnectedDevices(vector<char*> &devices);
 
 };
-
 extern Chroma_Implementation Chroma;
-extern PyObject *SyntaxError;
+
+
+
+
+
+
 #endif

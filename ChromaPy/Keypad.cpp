@@ -16,15 +16,8 @@ PyObject* set_keypad(PyObject* self, PyObject* args)
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
 	}
-	RZRESULT result = Chroma.setKeypad(color);
+	return Chroma.setKeypad(color);
 
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
 }
 
 PyObject* set_keypadbycord(PyObject* self, PyObject* args)
@@ -54,15 +47,7 @@ PyObject* set_keypadbycord(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	RZRESULT result = Chroma.setKeypadbyCord(x, y, color);
-
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
+	return Chroma.setKeypadbyCord(x, y, color);
 }
 
 PyObject* set_keypadbyrow(PyObject* self, PyObject* args)
@@ -87,15 +72,8 @@ PyObject* set_keypadbyrow(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	RZRESULT result = Chroma.setKeypadbyRow(y, color);
+	return Chroma.setKeypadbyRow(y, color);
 
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
 }
 
 
@@ -122,41 +100,17 @@ PyObject* set_keypadbycol(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	RZRESULT result = Chroma.setKeypadbyCol(x, color);
-
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
+	return Chroma.setKeypadbyCol(x, color);
 }
 
 PyObject* clear_keypad(PyObject* self, PyObject* args)
 {
-	RZRESULT result = Chroma.clearKeypadEffect();
-
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
+	return Chroma.clearKeypadEffect();
 }
 
 PyObject* applyEffectKeypad(PyObject* self, PyObject* args)
 {
-	RZRESULT result = Chroma.applyKeypadEffect();
-
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
+	return Chroma.applyKeypadEffect();
 }
 
 PyObject* ResetEffectKeypad(PyObject* self, PyObject* args) {
@@ -185,15 +139,7 @@ PyObject*ReactiveEffectKeypad(PyObject* self, PyObject* args) {
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Duration needs to be 0(short)-3(long)");
 		return nullptr;
 	}
-	RZRESULT result = Chroma.setKeypadReactive(duration, color);
-
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
+	return Chroma.setKeypadReactive(duration, color);
 }
 
 PyObject*WaveEffectKeypad(PyObject* self, PyObject* args) {
@@ -209,15 +155,7 @@ PyObject*WaveEffectKeypad(PyObject* self, PyObject* args) {
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Duration needs to be 0(left to right)-1(right to left)");
 		return nullptr;
 	}
-	RZRESULT result = Chroma.setKeypadWave(direction);
-
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
+	return Chroma.setKeypadWave(direction);
 }
 
 PyObject* BreathingEffectKeypad(PyObject* self, PyObject* args) {
@@ -235,10 +173,10 @@ PyObject* BreathingEffectKeypad(PyObject* self, PyObject* args) {
 	COLORREF SECOND = NULL;
 
 	if (temp == 0){ mode = false; }
-	else if (temp == 1) { mode = RZRESULT_SUCCESS; }
+	else if (temp == 1) { mode = true; }
 	else
 	{
-		PyErr_SetString(SyntaxError, "Invalid Arguments! Mode needs to be 0(false)-1(RZRESULT_SUCCESS)");
+		PyErr_SetString(SyntaxError, "Invalid Arguments! Mode needs to be 0(false)-1(true)");
 		return nullptr;
 	}
 
@@ -259,14 +197,5 @@ PyObject* BreathingEffectKeypad(PyObject* self, PyObject* args) {
 
 	}
 
-	RZRESULT result = Chroma.setKeypadBreathing(mode, FIRST, SECOND);
-
-
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
+	return Chroma.setKeypadBreathing(mode, FIRST, SECOND);
 }

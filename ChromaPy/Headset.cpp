@@ -17,14 +17,8 @@ PyObject* set_headset(PyObject* self, PyObject* args){
 		return nullptr;
 	}
 
-	RZRESULT result = Chroma.setHeadset(color);
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
+	return Chroma.setHeadset(color);
+
 }
 
 PyObject* set_headsetbyled(PyObject* self, PyObject* args){
@@ -48,41 +42,18 @@ PyObject* set_headsetbyled(PyObject* self, PyObject* args){
 		return nullptr;
 	}
 
-	RZRESULT result = Chroma.setHeadsetbyLED(x, color);
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: "+result);
-		return nullptr;
-	}
+	return Chroma.setHeadsetbyLED(x, color);
 
 }
 
 PyObject* clear_headset(PyObject* self, PyObject* args){
 	
-	RZRESULT result = Chroma.clearHeadsetEffect();
-
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
+	return Chroma.clearHeadsetEffect();
 }
 
 PyObject* applyEffectHeadset(PyObject* self, PyObject* args){
 
-	RZRESULT result = Chroma.applyHeadsetEffect();
-
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
+	return Chroma.applyHeadsetEffect();
 }
 
 PyObject* ResetEffectHeadset(PyObject* self, PyObject* args) {
@@ -108,15 +79,8 @@ PyObject* BreathingEffectHeadset(PyObject* self, PyObject* args) {
 		return nullptr;
 	}
 
-	RZRESULT result = Chroma.setHeadsetBreathing(FIRST);
+	return Chroma.setHeadsetBreathing(FIRST);
 
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
 }
 
 int Headset_init(ChromaHeadset *self, PyObject *args, PyObject *kwds){

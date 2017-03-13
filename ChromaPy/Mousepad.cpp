@@ -18,15 +18,7 @@ PyObject* set_mousepad(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	RZRESULT result = Chroma.setMousepad(color);
-
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
+	return Chroma.setMousepad(color);
 }
 
 PyObject* set_mousepadbyled(PyObject* self, PyObject* args)
@@ -53,45 +45,22 @@ PyObject* set_mousepadbyled(PyObject* self, PyObject* args)
 	}
 
 
-	RZRESULT result = Chroma.setMousepadbyLED(x, color);
+	return Chroma.setMousepadbyLED(x, color);
 
-
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
 }
 
 PyObject* clear_mousepad(PyObject* self, PyObject* args)
 {
 
-	RZRESULT result = Chroma.clearMousepadEffect();
+	return Chroma.clearMousepadEffect();
 
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
 
 }
 
 PyObject* applyEffectMousepad(PyObject* self, PyObject* args)
 {
 
-	RZRESULT result = Chroma.applyMousepadEffect();
-
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
+	return Chroma.applyMousepadEffect();
 
 }
 
@@ -118,15 +87,7 @@ PyObject*WaveEffectMousepad(PyObject* self, PyObject* args) {
 		return nullptr;
 	}
 
-	RZRESULT result = Chroma.setMousepadWave(direction);
-
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
+	return Chroma.setMousepadWave(direction);
 }
 
 PyObject* BreathingEffectMousepad(PyObject* self, PyObject* args) {
@@ -172,13 +133,5 @@ PyObject* BreathingEffectMousepad(PyObject* self, PyObject* args) {
 
 	}
 
-	RZRESULT result = Chroma.setMousepadBreathing(mode, FIRST, SECOND);
-
-	if (result == RZRESULT_SUCCESS) {
-		return PyUnicode_FromString("Success");
-	}
-	else {
-		PyErr_SetString(SyntaxError, "ChromaSDK Error! Error-Code: " + result);
-		return nullptr;
-	}
+	return Chroma.setMousepadBreathing(mode, FIRST, SECOND);
 }
