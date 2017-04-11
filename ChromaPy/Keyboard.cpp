@@ -80,6 +80,7 @@ PyObject* set_keyboardbyrow(PyObject* self, PyObject* args)
 
 	return Chroma.setKeyboardbyRow(y, color);
 
+	
 }
 
 PyObject* set_keyboardbycol(PyObject* self, PyObject* args)

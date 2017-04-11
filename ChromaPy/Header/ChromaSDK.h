@@ -123,6 +123,8 @@ public:
 	static PyObject* CheckError(RZRESULT result);
 	static void ConnectedDevices(vector<char*> &devices);
 
+	vector<Yeelight> Lights;
+
 };
 extern Chroma_Implementation Chroma;
 

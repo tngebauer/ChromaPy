@@ -3,11 +3,12 @@
 #include "Header\Mousepad.h"
 #include "Header\Keypad.h"
 #include "Header\Headset.h"
-
+#include "Smart Home.h"
 
 PyObject *SyntaxError;
 Chroma_Implementation Chroma;
-
+sf::TcpSocket TCP_SOCKET;
+vector<Yeelight*> Bulbs;
 PyObject* set_all(PyObject* self, PyObject* args)
 {
 	
@@ -20,9 +21,12 @@ PyObject* set_all(PyObject* self, PyObject* args)
 	
 	COLORREF color;
 	
-	if(!Chroma.Colortest(Color,color)){ return PyUnicode_FromString("Error"); }
-	
+	if (!Chroma.Colortest(Color, color)) {
+		return PyUnicode_FromString("Invalid Arguments!Color needs to be(0 - 255, 0 - 255, 0 - 255)"); }
 	Chroma.set_all(color);
+	for (size_t i = 0; i < Bulbs.size(); i++) {
+		Bulbs[i]->color(color);
+	}
 	return PyUnicode_FromString("Success");
 }
 
@@ -43,7 +47,6 @@ PyObject* getconnected(PyObject* self, PyObject* args)
 
 PyObject* applyEffect(PyObject* self, PyObject* args){
 
-
 	Chroma.applyKeyboardEffect();
 	Chroma.applyMouseEffect();
 	Chroma.applyMousepadEffect();
@@ -56,12 +59,9 @@ PyObject* applyEffect(PyObject* self, PyObject* args){
 
 PyObject* ResetEffect(PyObject* self, PyObject* args) {
 	
-	Chroma.ResetEffects(KEYBOARD_DEVICES);
-	Chroma.ResetEffects(MOUSE_DEVICES);
-	Chroma.ResetEffects(MOUSEMAT_DEVICES);
-	Chroma.ResetEffects(KEYPAD_DEVICES); 
-	Chroma.ResetEffects(HEADSET_DEVICES);
-	
+	for (UINT device = 1; device < 6; device++) {
+		Chroma.ResetEffects(device);
+	}
 	return PyUnicode_FromString("Success");
 
 }
@@ -123,6 +123,12 @@ PyInit_ChromaPy()
 		return nullptr;
 	}
 
+	SmartHome_Type.tp_new = PyType_GenericNew;
+	if (PyType_Ready(&SmartHome_Type)< 0)
+	{
+		return nullptr;
+	}
+
 	SyntaxError = PyErr_NewException("ChromaPy.SyntaxError", NULL, NULL);
 	Py_INCREF(SyntaxError);
 	PyModule_AddObject(m, "SyntaxError", SyntaxError);
@@ -133,12 +139,14 @@ PyInit_ChromaPy()
 	Py_INCREF(&Mousepad_Type);
 	Py_INCREF(&Keypad_Type);
 	Py_INCREF(&Headset_Type);
+	Py_INCREF(&SmartHome_Type);
 
 	PyModule_AddObject(m, "Keyboard", reinterpret_cast<PyObject *>(&Keyboard_Type));
 	PyModule_AddObject(m, "Mouse", reinterpret_cast<PyObject *>(&Mouse_Type));
 	PyModule_AddObject(m, "Mousepad", reinterpret_cast<PyObject *>(&Mousepad_Type));
 	PyModule_AddObject(m, "Keypad", reinterpret_cast<PyObject *>(&Keypad_Type));
 	PyModule_AddObject(m, "Headset", reinterpret_cast<PyObject *>(&Headset_Type));
+	PyModule_AddObject(m, "SmartHome", reinterpret_cast<PyObject *>(&SmartHome_Type));
 	return m;
 }
 

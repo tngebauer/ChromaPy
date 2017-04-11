@@ -76,3 +76,6 @@ static char* docGlobalsetColor = "sets all LED-Grids to one color. Usage: setCol
 static char* docGlobalapplyEffect = "applies all LED-Grids to their devices. Usage: applyEffect()";
 static char* docGlobalgetConnectedDevices = "returns a list of all connected Chroma-devices. Usage: getConnectedDevices()";
 static char* docGlobalresetEffect = "resets the current Chroma-Effect. Usage: resetEffect()";
+
+
+static char* PlaceHolder = "This is a placeholder";
