@@ -1,6 +1,6 @@
 # ChromaPy
 
-ChromaPy is a small ChromaSDK Extension for Python.
+ChromaPy is a small ChromaSDK Extension for Python[Windows].
 
 Usage
 --------
@@ -65,4 +65,4 @@ The "SFML-Library" is licensed under the [zlib/libpng License][zlib].
 [zlib]: https://www.sfml-dev.org/license.php
 [sfml]: https://www.sfml-dev.org/index.php
 [nloh]: https://github.com/nlohmann/json
-[insider]: https://insider.razerzone.com/index.php?threads/beta-release-chromapy-python-extension-for-the-chroma-sdk-windows.18938/#post-324752
+[insider]: https://insider.razerzone.com/index.php?threads/beta-release-chromapy-python-extension-for-the-chroma-sdk-windows.18938
