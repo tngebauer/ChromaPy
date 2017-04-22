@@ -1,8 +1,5 @@
 #pragma once
-#include "SFML\Network.hpp"
-#include <string>
-#include <vector>
-#include <iostream>
+#include "SFML/Network.hpp"
 #include "json.hpp"
 #include <Windows.h>
 
@@ -39,9 +36,9 @@ public:
 	string getName();
 
 
-	bool  operator==(const Yeelight b) {
+	bool  operator==(const Yeelight b) const
+	{
 		if (!(this->IP.compare(b.IP))) { return true; }
 		else { return false; }
 	}
-
 };

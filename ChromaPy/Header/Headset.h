@@ -78,7 +78,7 @@ static PyTypeObject Headset_Type = {
 	nullptr,                         /* tp_descr_get */
 	nullptr,                         /* tp_descr_set */
 	0,                         /* tp_dictoffset */
-	(initproc)Headset_init,      /* tp_init */
+	reinterpret_cast<initproc>(Headset_init),      /* tp_init */
 	nullptr,                         /* tp_alloc */
 	nullptr,                 /* tp_new */
 };

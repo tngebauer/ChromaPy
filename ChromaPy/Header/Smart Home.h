@@ -1,68 +1,79 @@
 #pragma once
-#include "ChromaSDK.h"
-//extern vector<Yeelight> Lights;
+#include "Header/ChromaSDK.h"
+
+
 typedef struct
 {
 	PyObject_HEAD
-} Yee_Bulb;
+		Yeelight Bulb;
 
-static PyMemberDef yeemembers[] = {
+} SmartHome;
+
+
+static PyMemberDef smarthomemembers[] = {
 	{ nullptr }  /* Sentinel */
 };
 
 
-PyObject* add_light(PyObject* self, PyObject* args) {
-	PyObject *IP,*Name;
-	if (!PyArg_ParseTuple(args, "uu", &IP, &Name))
-	{
-		return 0;
-	}
-	string ip = PyUnicode_AsUTF8(IP);
-	string name = PyUnicode_AsUTF8(Name);
-	//Lights.push_back(Yeelight(ip,name));
-	//ize_t position = Lights.size() - 1;
-	string retour = "Successful, the Yeelight was saved as ";
-	retour.append(name);
-	retour.append(" with the ID ");
-	//retour.append(to_string(position));
-	return PyUnicode_FromString(retour.c_str());
-}
+extern vector<Yeelight*> Bulbs;
+
+PyObject* set_color(SmartHome *self, PyObject *args);
+
+PyObject* set_ip(SmartHome *self, PyObject *args);
+
+PyObject* power(SmartHome *self, PyObject *args);
+
+PyObject* brightness(SmartHome *self, PyObject *args);
+
+PyObject* getbrightness(SmartHome *self, PyObject *args);
+
+PyObject* getrgb(SmartHome *self, PyObject *args);
+
+PyObject* getpower(SmartHome *self, PyObject *args);
 
 
 
-static int yee_init(Yee_Bulb *self, PyObject *args, PyObject *kwds)
-{
-	return 0;
-}
 
-PyObject* power(PyObject* self, PyObject* args) {
-	PyObject *state;
-	size_t position;
-	if (!PyArg_ParseTuple(args, "ui", &state,&position))
-	{
-		PyErr_SetString(SyntaxError, "Invalid Arguments! Usage: setColor(color) | setColor((R, G, B))");
-		return nullptr;
-	}
-
-
-
-	string temp = PyUnicode_AsUTF8(state);
-	//Lights[position].power(temp);
-	return PyUnicode_FromString("Successful, I hope!");
-}
-
-
-
-static PyMethodDef yeemethods[] = {
-	{ "power", power, METH_VARARGS, docMousepadsetColor },
+static PyMethodDef smarthomemethods[] = {
+	{ "setColor", reinterpret_cast<PyCFunction>(set_color), METH_VARARGS, PlaceHolder },
+	{ "setIP", reinterpret_cast<PyCFunction>(set_ip), METH_VARARGS, PlaceHolder },
+	{ "setPower", reinterpret_cast<PyCFunction>(power), METH_VARARGS, PlaceHolder },
+	{ "setBrightness", reinterpret_cast<PyCFunction>(brightness), METH_VARARGS, PlaceHolder },
+	{ "getBrightness", reinterpret_cast<PyCFunction>(getbrightness), METH_NOARGS, PlaceHolder },
+	{ "getRGB", reinterpret_cast<PyCFunction>(getrgb), METH_NOARGS, PlaceHolder },
+	{ "getPower", reinterpret_cast<PyCFunction>(getpower), METH_NOARGS, PlaceHolder },
 	{ nullptr,nullptr,0,nullptr }
 };
 
 
-static PyTypeObject Yee_Type = {
+static int smarthome_init(SmartHome *self, PyObject *args, PyObject *kwds)
+{
+	char* IP;
+	if (!PyArg_ParseTuple(args, "s", &IP))
+	{
+		PyErr_SetString(SyntaxError, "Invalid Arguments! Usage: SmartHome(IP))");
+		return 1;
+	}
+	
+	self->Bulb.changeip(IP);
+
+	bool generate = true;
+	for (size_t i = 0; i < Bulbs.size(); i++) {
+		if (*Bulbs[i] == self->Bulb) {
+			Bulbs.erase(Bulbs.begin() + i-1);
+		}
+	}
+	Bulbs.push_back(&self->Bulb);
+	return 0;
+}
+
+
+
+
+static PyTypeObject SmartHome_Type = {
 	PyVarObject_HEAD_INIT(NULL, 0)
-	"Mouse",             /* tp_name */
-	sizeof(Yee_Bulb),             /* tp_basicsize */
+	"SmartHome",             /* tp_name */
+	sizeof(SmartHome),             /* tp_basicsize */
 	0,                         /* tp_itemsize */
 	nullptr, /* tp_dealloc */
 	nullptr,                         /* tp_print */
@@ -81,22 +92,23 @@ static PyTypeObject Yee_Type = {
 	nullptr,                         /* tp_as_buffer */
 	Py_TPFLAGS_DEFAULT |
 	Py_TPFLAGS_BASETYPE,   /* tp_flags */
-	nullptr,           /* tp_doc */
+	docMousepad,           /* tp_doc */
 	nullptr,                         /* tp_traverse */
 	nullptr,                         /* tp_clear */
 	nullptr,                         /* tp_richcompare */
 	0,                         /* tp_weaklistoffset */
 	nullptr,                         /* tp_iter */
 	nullptr,                         /* tp_iternext */
-	yeemethods,             /* tp_methods */
-	yeemembers,             /* tp_members */
+	smarthomemethods,             /* tp_methods */
+	smarthomemembers,             /* tp_members */
 	nullptr,                         /* tp_getset */
 	nullptr,                         /* tp_base */
 	nullptr,                         /* tp_dict */
 	nullptr,                         /* tp_descr_get */
 	nullptr,                         /* tp_descr_set */
 	0,                         /* tp_dictoffset */
-	reinterpret_cast<initproc>(yee_init),      /* tp_init */
+	reinterpret_cast<initproc>(smarthome_init),      /* tp_init */
 	nullptr,                         /* tp_alloc */
 	nullptr,                 /* tp_new */
 };
+

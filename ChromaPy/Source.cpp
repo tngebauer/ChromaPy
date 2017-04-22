@@ -1,14 +1,26 @@
-#include "Header\Keyboard.h"
-#include "Header\Mouse.h"
-#include "Header\Mousepad.h"
-#include "Header\Keypad.h"
-#include "Header\Headset.h"
-#include "Smart Home.h"
+#include "Header/Keyboard.h"
+#include "Header/Mouse.h"
+#include "Header/Mousepad.h"
+#include "Header/Keypad.h"
+#include "Header/Headset.h"
+#include "Header/Smart Home.h"
 
 PyObject *SyntaxError;
 Chroma_Implementation Chroma;
 sf::TcpSocket TCP_SOCKET;
 vector<Yeelight*> Bulbs;
+
+PyObject* applyEffect(PyObject* self, PyObject* args) {
+
+	Chroma.applyKeyboardEffect();
+	Chroma.applyMouseEffect();
+	Chroma.applyMousepadEffect();
+	Chroma.applyKeypadEffect();
+	Chroma.applyHeadsetEffect();
+
+	return PyUnicode_FromString("Success");
+}
+
 PyObject* set_all(PyObject* self, PyObject* args)
 {
 	
@@ -27,6 +39,11 @@ PyObject* set_all(PyObject* self, PyObject* args)
 	for (size_t i = 0; i < Bulbs.size(); i++) {
 		Bulbs[i]->color(color);
 	}
+	Chroma.applyKeyboardEffect();
+	Chroma.applyMouseEffect();
+	Chroma.applyMousepadEffect();
+	Chroma.applyKeypadEffect();
+	Chroma.applyHeadsetEffect();
 	return PyUnicode_FromString("Success");
 }
 
@@ -45,17 +62,7 @@ PyObject* getconnected(PyObject* self, PyObject* args)
 		return lst;
 }
 
-PyObject* applyEffect(PyObject* self, PyObject* args){
 
-	Chroma.applyKeyboardEffect();
-	Chroma.applyMouseEffect();
-	Chroma.applyMousepadEffect();
-	Chroma.applyKeypadEffect();
-	Chroma.applyHeadsetEffect();
-
-
-	return PyUnicode_FromString("Success");
-}
 
 PyObject* ResetEffect(PyObject* self, PyObject* args) {
 	
@@ -89,7 +96,6 @@ static struct PyModuleDef ChromaPy = {
 PyMODINIT_FUNC
 PyInit_ChromaPy()
 {
-	PyObject* m;
 	Chroma.Initialize();
 	Keyboard_Type.tp_new = PyType_GenericNew;
 	
@@ -118,7 +124,7 @@ PyInit_ChromaPy()
 		return nullptr;
 	}
 
-	m = PyModule_Create(&ChromaPy);
+	PyObject * m = PyModule_Create(&ChromaPy);
 	if (m == nullptr) {
 		return nullptr;
 	}
@@ -129,7 +135,7 @@ PyInit_ChromaPy()
 		return nullptr;
 	}
 
-	SyntaxError = PyErr_NewException("ChromaPy.SyntaxError", NULL, NULL);
+	SyntaxError = PyErr_NewException("ChromaPy.SyntaxError", nullptr, nullptr);
 	Py_INCREF(SyntaxError);
 	PyModule_AddObject(m, "SyntaxError", SyntaxError);
 

@@ -399,7 +399,7 @@ bool Chroma_Implementation::Colortest(PyObject *InputColor, COLORREF &color){
 
 PyObject* Chroma_Implementation::setKeyboardReactive(size_t Duration, COLORREF Color) {
 
-	ChromaSDK::Keyboard::REACTIVE_EFFECT_TYPE Reactive_Effect = {};
+	ChromaSDK::Keyboard::REACTIVE_EFFECT_TYPE Reactive_Effect;
 
 	Reactive_Effect.Color = Color;
 	switch (Duration) {
@@ -424,7 +424,7 @@ PyObject* Chroma_Implementation::setKeyboardReactive(size_t Duration, COLORREF C
 }
 
 PyObject* Chroma_Implementation::setKeypadReactive(size_t Duration, COLORREF Color) {
-	ChromaSDK::Keypad::REACTIVE_EFFECT_TYPE Reactive_Effect = {};
+	ChromaSDK::Keypad::REACTIVE_EFFECT_TYPE Reactive_Effect;
 
 	Reactive_Effect.Color = Color;
 	switch (Duration) {
@@ -453,7 +453,7 @@ PyObject* Chroma_Implementation::setKeypadReactive(size_t Duration, COLORREF Col
 PyObject* Chroma_Implementation::setKeyboardWave(size_t direction) {
 
 
-	ChromaSDK::Keyboard::WAVE_EFFECT_TYPE Wave_Effect = {};
+	ChromaSDK::Keyboard::WAVE_EFFECT_TYPE Wave_Effect;
 
 	switch (direction) {
 	case 0:
@@ -478,7 +478,7 @@ PyObject* Chroma_Implementation::setKeyboardWave(size_t direction) {
 PyObject* Chroma_Implementation::setKeypadWave(size_t direction) {
 
 
-	ChromaSDK::Keypad::WAVE_EFFECT_TYPE Wave_Effect = {};
+	ChromaSDK::Keypad::WAVE_EFFECT_TYPE Wave_Effect;
 
 	switch (direction) {
 	case 0:
@@ -502,7 +502,7 @@ PyObject* Chroma_Implementation::setKeypadWave(size_t direction) {
 PyObject* Chroma_Implementation::setMouseWave(size_t direction) {
 
 
-	ChromaSDK::Mouse::WAVE_EFFECT_TYPE Wave_Effect = {};
+	ChromaSDK::Mouse::WAVE_EFFECT_TYPE Wave_Effect;
 
 	switch (direction) {
 	case 1:
@@ -512,7 +512,7 @@ PyObject* Chroma_Implementation::setMouseWave(size_t direction) {
 		Wave_Effect.Direction = Wave_Effect.BACK_TO_FRONT;
 		break;
 	default:
-		return FALSE;
+		return nullptr;
 	}
 
 	return CheckError(CreateMouseEffect(ChromaSDK::Mouse::CHROMA_WAVE, &Wave_Effect, nullptr));
@@ -522,7 +522,7 @@ PyObject* Chroma_Implementation::setMouseWave(size_t direction) {
 PyObject* Chroma_Implementation::setMousepadWave(size_t direction) {
 
 
-	ChromaSDK::Mousepad::WAVE_EFFECT_TYPE Wave_Effect = {};
+	ChromaSDK::Mousepad::WAVE_EFFECT_TYPE Wave_Effect;
 
 	switch (direction) {
 	case 0:
@@ -599,7 +599,7 @@ PyObject* Chroma_Implementation::setMousepadBreathing(bool mode, COLORREF first,
 
 }
 PyObject* Chroma_Implementation::setHeadsetBreathing(COLORREF first) {
-	ChromaSDK::Headset::BREATHING_EFFECT_TYPE Breathing_Effect = {};
+	ChromaSDK::Headset::BREATHING_EFFECT_TYPE Breathing_Effect;
 
 	Breathing_Effect.Color = first;
 
