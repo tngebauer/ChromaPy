@@ -48,9 +48,9 @@ This project is licensed under the MIT license, please see the file **LICENSE** 
 Razer is a trademark and/or a registered trademark of Razer USA Ltd.  
 All other trademarks are property of their respective owners.
 
-The "SFML-Library" is provided under the [zlib/libpng License][zlib].
+The "SFML-Library" is licensed under the [zlib/libpng License][zlib].
 
-"JSON for Modern C++" is provided under the [MIT License][mit].
+"JSON for Modern C++" is licensed under the [MIT License][mit].
 
 
 
