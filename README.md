@@ -14,6 +14,22 @@ Chroma.setColor(RED)
 ```
 For further information take a look at the wiki of this repo. You can also find multiple examples in the "Example Script"-directory.
 
+Supported Devices
+--------
+Razer devices:
+* Keyboard
+* Keypad
+* Mouse
+* Mousepad
+* Headset
+* Systems
+
+SmartHome:
+* Xiaomi Yeelight
+
+more comming soon.
+
+
 
 Building
 --------
