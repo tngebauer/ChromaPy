@@ -22,7 +22,7 @@ PyObject* set_keypad(PyObject* self, PyObject* args)
 
 PyObject* set_keypadbycord(PyObject* self, PyObject* args)
 {
-	size_t x, y;
+	long x, y;
 
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "llO", &x, &y, &Color))
@@ -52,7 +52,7 @@ PyObject* set_keypadbycord(PyObject* self, PyObject* args)
 
 PyObject* set_keypadbyrow(PyObject* self, PyObject* args)
 {
-	size_t y;
+	long y;
 
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "lO", &y, &Color))
@@ -79,7 +79,7 @@ PyObject* set_keypadbyrow(PyObject* self, PyObject* args)
 
 PyObject* set_keypadbycol(PyObject* self, PyObject* args)
 {
-	size_t x;
+	long x;
 
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "lO", &x, &Color))

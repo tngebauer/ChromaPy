@@ -54,7 +54,7 @@ PyObject* getconnected(PyObject* self, PyObject* args)
 
 		PyObject *lst = PyList_New(devices.size());
 
-		for(size_t i = 0; i < devices.size(); i++)
+		for(long i = 0; i < devices.size(); i++)
 		{
 			PyObject *str = PyUnicode_FromString(devices[i]);
 			PyList_SET_ITEM(lst, i, str);

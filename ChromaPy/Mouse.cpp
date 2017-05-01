@@ -21,8 +21,8 @@ PyObject* set_mouse(PyObject* self, PyObject* args)
 
 PyObject* set_mousebycord(PyObject* self, PyObject* args)
 {
-	size_t x;
-	size_t y;
+	long x;
+	long y;
 
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "llO", &x, &y, &Color))
@@ -54,7 +54,7 @@ PyObject* set_mousebycord(PyObject* self, PyObject* args)
 PyObject* set_mousebyrow(PyObject* self, PyObject* args)
 {
 
-	size_t y;
+	long y;
 
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "lO", &y, &Color))
@@ -81,7 +81,7 @@ PyObject* set_mousebyrow(PyObject* self, PyObject* args)
 PyObject* set_mousebycol(PyObject* self, PyObject* args)
 {
 
-	size_t x;
+	long x;
 
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "lO", &x, &Color))

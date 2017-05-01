@@ -22,7 +22,7 @@ PyObject* set_headset(PyObject* self, PyObject* args){
 }
 
 PyObject* set_headsetbyled(PyObject* self, PyObject* args){
-	size_t x;
+	long x;
 
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "lO", &x, &Color)){

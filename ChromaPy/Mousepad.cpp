@@ -23,7 +23,7 @@ PyObject* set_mousepad(PyObject* self, PyObject* args)
 
 PyObject* set_mousepadbyled(PyObject* self, PyObject* args)
 {
-	size_t x;
+	long x;
 
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "lO", &x, &Color))

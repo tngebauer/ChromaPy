@@ -22,7 +22,7 @@ PyObject* set_keyboard(PyObject* self, PyObject* args)
 
 PyObject* set_keyboardbycord(PyObject* self, PyObject* args)
 {
-	size_t x, y;
+	long x, y;
 
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "llO", &x, &y, &Color))
@@ -57,7 +57,7 @@ PyObject* set_keyboardbycord(PyObject* self, PyObject* args)
 
 PyObject* set_keyboardbyrow(PyObject* self, PyObject* args)
 {
-	size_t y;
+	long y;
 
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "lO", &y, &Color))
@@ -85,7 +85,7 @@ PyObject* set_keyboardbyrow(PyObject* self, PyObject* args)
 
 PyObject* set_keyboardbycol(PyObject* self, PyObject* args)
 {
-	size_t x;
+	long x;
 
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "lO", &x, &Color))
