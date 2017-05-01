@@ -60,30 +60,30 @@ public:
 	PyObject* setKeypad(COLORREF Color);
 	PyObject* setHeadset(COLORREF Color);
 
-	PyObject* setKeyboardbyCord(size_t x, size_t y, COLORREF Color);
-	PyObject* setMousebyCord(size_t x, size_t y, COLORREF Color);
-	PyObject* setMousepadbyLED(size_t led, COLORREF Color);
-	PyObject* setKeypadbyCord(size_t x, size_t y, COLORREF Color);
-	PyObject* setHeadsetbyLED(size_t led, COLORREF Color);
+	PyObject* setKeyboardbyCord(long x, long y, COLORREF Color);
+	PyObject* setMousebyCord(long x, long y, COLORREF Color);
+	PyObject* setMousepadbyLED(long led, COLORREF Color);
+	PyObject* setKeypadbyCord(long x, long y, COLORREF Color);
+	PyObject* setHeadsetbyLED(long led, COLORREF Color);
 
-	PyObject* setKeyboardbyRow(size_t Row, COLORREF Color);
-	PyObject* setKeyboardbyCol(size_t Col, COLORREF Color);
+	PyObject* setKeyboardbyRow(long Row, COLORREF Color);
+	PyObject* setKeyboardbyCol(long Col, COLORREF Color);
 
-	PyObject* setMousebyRow(size_t Row, COLORREF Color);
-	PyObject* setMousebyCol(size_t Col, COLORREF Color);
+	PyObject* setMousebyRow(long Row, COLORREF Color);
+	PyObject* setMousebyCol(long Col, COLORREF Color);
 
-	PyObject* setKeypadbyRow(size_t Row, COLORREF Color);
-	PyObject* setKeypadbyCol(size_t Col, COLORREF Color);
+	PyObject* setKeypadbyRow(long Row, COLORREF Color);
+	PyObject* setKeypadbyCol(long Col, COLORREF Color);
 
 	//Reactive Effect
-	static PyObject* setKeyboardReactive(size_t Duration, COLORREF Color);
-	static PyObject* setKeypadReactive(size_t Duration, COLORREF Color);
+	static PyObject* setKeyboardReactive(long Duration, COLORREF Color);
+	static PyObject* setKeypadReactive(long Duration, COLORREF Color);
 
 	//Wave Effect
-	static PyObject* setKeyboardWave(size_t direction);
-	static PyObject* setKeypadWave(size_t direction);
-	static PyObject* setMouseWave(size_t direction);
-	static PyObject* setMousepadWave(size_t direction);
+	static PyObject* setKeyboardWave(long direction);
+	static PyObject* setKeypadWave(long direction);
+	static PyObject* setMouseWave(long direction);
+	static PyObject* setMousepadWave(long direction);
 
 	//Breathing Effect
 	static PyObject* setKeyboardBreathing(bool mode, COLORREF first, COLORREF second);
@@ -107,17 +107,17 @@ public:
 	PyObject* applyHeadsetEffect();
 
 	//Constants
-	static size_t Keyboard_MaxCol();
-	static size_t Keyboard_MaxRow();
-	static size_t Keyboard_MaxLED();
-	static size_t Mouse_MaxRow();
-	static size_t Mouse_MaxCol();
-	static size_t Mouse_MaxLED();
-	static size_t Mousepad_MaxLED();
-	static size_t Keypad_MaxRow();
-	static size_t Keypad_MaxCol();
-	static size_t Keypad_MaxLED();
-	static size_t Headset_MaxLED();
+	static long Keyboard_MaxCol();
+	static long Keyboard_MaxRow();
+	static long Keyboard_MaxLED();
+	static long Mouse_MaxRow();
+	static long Mouse_MaxCol();
+	static long Mouse_MaxLED();
+	static long Mousepad_MaxLED();
+	static long Keypad_MaxRow();
+	static long Keypad_MaxCol();
+	static long Keypad_MaxLED();
+	static long Headset_MaxLED();
 
 	static bool Colortest(PyObject *Color, COLORREF &color);
 	static PyObject* CheckError(RZRESULT result);

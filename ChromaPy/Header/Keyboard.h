@@ -6,9 +6,9 @@
 typedef struct
 {
 	PyObject_HEAD
-		size_t MaxRow;
-	size_t MaxColumn;
-	size_t MaxLED;
+	long MaxRow;
+	long MaxColumn;
+	long MaxLED;
 
 
 } ChromaKeyboard;

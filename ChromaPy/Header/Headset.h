@@ -4,7 +4,7 @@
 typedef struct
 {
 	PyObject_HEAD
-		size_t MaxLED;
+		long MaxLED;
 
 
 } ChromaHeadset;

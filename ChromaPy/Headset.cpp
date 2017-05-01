@@ -22,7 +22,7 @@ PyObject* set_headset(PyObject* self, PyObject* args){
 }
 
 PyObject* set_headsetbyled(PyObject* self, PyObject* args){
-	size_t x;
+	long x;
 
 	PyObject *Color;
 	if (!PyArg_ParseTuple(args, "lO", &x, &Color)){
@@ -30,7 +30,7 @@ PyObject* set_headsetbyled(PyObject* self, PyObject* args){
 		return nullptr;
 	}
 
-	if (x > ChromaSDK::Headset::MAX_LEDS || x < 0) {
+	if ((x > ChromaSDK::Headset::MAX_LEDS) || (x < 0)) {
 		PyErr_SetString(SyntaxError, "Invalid Argument! LED out of range");
 		return nullptr;
 	}
