@@ -27,7 +27,7 @@ Razer devices:
 SmartHome:
 * Xiaomi Yeelight
 
-more comming soon.
+more coming soon.
 
 
 
