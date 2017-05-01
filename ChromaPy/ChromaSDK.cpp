@@ -390,9 +390,9 @@ bool Chroma_Implementation::Colortest(PyObject *InputColor, COLORREF &color){
 	}
 	catch(...){ return false; }
 
-	if (R < 0 || R > 255){ return false; }
-	if (G < 0 || G > 255){ return false; }
-	if (B < 0 || B > 255){ return false; }
+	if ((R < 0) || (R > 255)){ return false; }
+	if ((G < 0) || (G > 255)){ return false; }
+	if ((B < 0) || (B > 255)){ return false; }
 	color = RGB(R, G, B);
 	return true;
 }

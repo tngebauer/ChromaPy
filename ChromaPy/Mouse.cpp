@@ -31,11 +31,11 @@ PyObject* set_mousebycord(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	if (x > ChromaSDK::Mouse::MAX_COLUMN || x < 0) {
+	if ((x > ChromaSDK::Mouse::MAX_COLUMN) || (x < 0)) {
 		PyErr_SetString(SyntaxError, "Invalid Argument! X-coordinate out of range");
 		return nullptr;
 	}
-	else if (y > ChromaSDK::Mouse::MAX_ROW || y < 0) {
+	else if ((y > ChromaSDK::Mouse::MAX_ROW) || (y < 0)) {
 		PyErr_SetString(SyntaxError, "Invalid Argument! Y-coordinate out of range");
 		return nullptr;
 	}
@@ -62,7 +62,7 @@ PyObject* set_mousebyrow(PyObject* self, PyObject* args)
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Usage: setbyRow(row, color) | setbyRow(row, (R, G, B))");
 		return nullptr;
 	}
- if (y > ChromaSDK::Mouse::MAX_ROW || y < 0) {
+ if ((y > ChromaSDK::Mouse::MAX_ROW) || (y < 0)) {
 		PyErr_SetString(SyntaxError, "Invalid Argument! Y-coordinate out of range");
 		return nullptr;
 	}
@@ -90,7 +90,7 @@ PyObject* set_mousebycol(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	if (x > ChromaSDK::Mouse::MAX_COLUMN || x < 0) {
+	if ((x > ChromaSDK::Mouse::MAX_COLUMN) || (x < 0)) {
 		PyErr_SetString(SyntaxError, "Invalid Argument! X-coordinate out of range");
 		return nullptr;
 	}
@@ -136,7 +136,7 @@ PyObject*WaveEffectMouse(PyObject* self, PyObject* args) {
 		return nullptr;
 	}
 
-	if (direction < 0 || direction > 2) {
+	if ((direction < 0) || (direction > 2)) {
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Duration needs to be 1(top to bottom)-2(bottom to top)");
 		return nullptr;
 	}

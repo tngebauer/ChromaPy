@@ -31,11 +31,11 @@ PyObject* set_keypadbycord(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	if (x > ChromaSDK::Keypad::MAX_COLUMN || x < 0) {
+	if ((x > ChromaSDK::Keypad::MAX_COLUMN) || (x < 0)) {
 		PyErr_SetString(SyntaxError, "Invalid Argument! X-coordinate out of range");
 		return nullptr;
 	}
-	else if (y > ChromaSDK::Keypad::MAX_ROW || y < 0) {
+	else if ((y > ChromaSDK::Keypad::MAX_ROW) || (y < 0)) {
 		PyErr_SetString(SyntaxError, "Invalid Argument! Y-coordinate out of range");
 		return nullptr;
 	}
@@ -61,7 +61,7 @@ PyObject* set_keypadbyrow(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	if (y > ChromaSDK::Keypad::MAX_ROW || y < 0) {
+	if ((y > ChromaSDK::Keypad::MAX_ROW) || (y < 0)) {
 		PyErr_SetString(SyntaxError, "Invalid Argument! Y-coordinate out of range");
 		return nullptr;
 	}
@@ -88,7 +88,7 @@ PyObject* set_keypadbycol(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	if (x > ChromaSDK::Keypad::MAX_COLUMN || x < 0) {
+	if ((x > ChromaSDK::Keypad::MAX_COLUMN || x < 0)) {
 		PyErr_SetString(SyntaxError, "Invalid Argument! X-coordinate out of range");
 		return nullptr;
 	}
@@ -135,7 +135,7 @@ PyObject*ReactiveEffectKeypad(PyObject* self, PyObject* args) {
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Color needs to be (0-255, 0-255, 0-255)");
 		return nullptr;
 	}
-	if (duration < 0 || duration > 3) {
+	if ((duration < 0) || (duration > 3)) {
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Duration needs to be 0(short)-3(long)");
 		return nullptr;
 	}

@@ -32,7 +32,7 @@ PyObject* set_mousepadbyled(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	if (x > ChromaSDK::Mousepad::MAX_LEDS || x < 0) {
+	if ((x > ChromaSDK::Mousepad::MAX_LEDS) || (x < 0)) {
 		PyErr_SetString(SyntaxError, "Invalid Argument! LED out of range");
 		return nullptr;
 	}
@@ -82,7 +82,7 @@ PyObject*WaveEffectMousepad(PyObject* self, PyObject* args) {
 		return nullptr;
 	}
 
-	if (direction < 0 || direction > 2) {
+	if ((direction < 0) || (direction > 2)) {
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Duration needs to be 1(left to right)-2(right to left)");
 		return nullptr;
 	}

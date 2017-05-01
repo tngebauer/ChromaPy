@@ -31,11 +31,11 @@ PyObject* set_keyboardbycord(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	if (x > ChromaSDK::Keyboard::MAX_COLUMN || x < 0) {
+	if ((x > ChromaSDK::Keyboard::MAX_COLUMN) || (x < 0)) {
 		PyErr_SetString(SyntaxError, "Invalid Argument! X-coordinate out of range");
 		return nullptr;
 	}
-	else if (y > ChromaSDK::Keyboard::MAX_ROW || y < 0) {
+	else if ((y > ChromaSDK::Keyboard::MAX_ROW) || (y < 0)) {
 		PyErr_SetString(SyntaxError, "Invalid Argument! Y-coordinate out of range");
 		return nullptr;
 	}
@@ -66,7 +66,7 @@ PyObject* set_keyboardbyrow(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	 if (y > ChromaSDK::Keyboard::MAX_ROW || y < 0) {
+	 if ((y > ChromaSDK::Keyboard::MAX_ROW) || (y < 0)) {
 		PyErr_SetString(SyntaxError, "Invalid Argument! Y-coordinate out of range");
 		return nullptr;
 	}
@@ -94,7 +94,7 @@ PyObject* set_keyboardbycol(PyObject* self, PyObject* args)
 		return nullptr;
 	}
 
-	if (x > ChromaSDK::Keyboard::MAX_COLUMN || x < 0) {
+	if ((x > ChromaSDK::Keyboard::MAX_COLUMN) || (x < 0)) {
 		PyErr_SetString(SyntaxError, "Invalid Argument! X-coordinate out of range");
 		return nullptr;
 	}
@@ -148,7 +148,7 @@ PyObject* ReactiveEffectKeyboard(PyObject* self, PyObject* args) {
 		return nullptr;
 	}
 
-	if (duration < 0 || duration > 3) {
+	if ((duration < 0) || (duration > 3)) {
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Duration needs to be 0(short)-3(long)");
 		return nullptr;
 	}
@@ -166,7 +166,7 @@ PyObject* WaveEffectKeyboard(PyObject* self, PyObject* args) {
 		return nullptr;
 	}
 
-	if (direction < 0 || direction > 2) {
+	if ((direction < 0) || (direction > 2)) {
 		PyErr_SetString(SyntaxError, "Invalid Arguments! Duration needs to be 0(left to right)-1(right to left)");
 		return nullptr;
 	}
