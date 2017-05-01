@@ -197,11 +197,11 @@ PyObject* Chroma_Implementation::setKeypad(COLORREF Color) {
 	return PyUnicode_FromString("Success");;
 }
 PyObject* Chroma_Implementation::setHeadset(COLORREF Color) {
-	for (UINT count = 0; count < ChromaSDK::Headset::MAX_LEDS; count++) {
-		this->Headset_Effect.Color[count] = Color;
-	}
+	ChromaSDK::Headset::STATIC_EFFECT_TYPE Static_Effect;
 
-	return PyUnicode_FromString("Success");;
+	Static_Effect.Color = Color;
+
+	return CheckError(CreateHeadsetEffect(ChromaSDK::Headset::CHROMA_STATIC, &Static_Effect, nullptr));
 }
 
 //Set Keyboard by x- and y-cords
