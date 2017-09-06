@@ -7,6 +7,6 @@ RED = (255, 0, 0)  # Initialize a new color by RGB (RED,GREEN,BLUE)
 
 Headset.setColor(RED)  # sets the whole Headset-Grid to RED
 
-Headset.applyGrid()  # applies the Headset-Grid to the connected Headset
+Headset.applyLED()  # applies the Headset-Grid to the connected Headset
 
 sleep(5)
